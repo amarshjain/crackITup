@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 const {check, validationResult} = require("express-validator");
 
 const User = require("../../models/User");
@@ -11,12 +13,12 @@ const User = require("../../models/User");
 // Public route
 router.post('/', [
     check('name', 'Name is Required').not().isEmpty(),
-    check('email', 'Email is not valid').isEmail,
+    check('email', 'Email is not valid').isEmail(),
     check('password', 'Please Enter a password with 6 or more characters').isLength({min: 6})
 ] ,
 async (req, res) => {
     const errors = validationResult(req);
-    if(!error.isEmpty()){
+    if(!errors .isEmpty()){
         return res.status(400).json({errors: errors.array()});
     }
 
@@ -27,7 +29,7 @@ async (req, res) => {
     try {
         let user = await User.findOne({email});
         if(user){
-            res.status(400).json({ errors: [{ msg: 'User Already Exists' }] });
+            return res.status(400).json({ errors: [{ msg: 'User Already Exists' }] });
         }
 
         //Get users gravatar
@@ -47,7 +49,18 @@ async (req, res) => {
 
         await user.save();
 
-        res.send("User Created");
+        const payload = {
+            user: {
+                id: user.id
+            }
+        }
+
+        jwt.sign(payload, config.get('jwtSecret'),{expiresIn: 36000},
+        (err, token) => {
+            if(err) throw err;
+            res.json({token})
+        }
+        );
 
 
     } catch (err) {
