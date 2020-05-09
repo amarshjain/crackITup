@@ -20,6 +20,10 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    exams: {
+        type: [Object],
+        ref: 'create_exam'
+    },
     date: {
         type: Date,
         default: Date.now

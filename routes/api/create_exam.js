@@ -4,6 +4,7 @@ const auth = require("../../middleware/auth");
 
 const {check, validationResult} = require("express-validator");
 
+const User = require("../../models/User");
 const CreateExam = require("../../models/CreateExam");
 
 // POST api/exams
@@ -135,7 +136,7 @@ router.put('/:exam_id/que', [auth, [
 
 // DELETE /api/exams/:exam_id/que/:que_id
 // DELETE a question
-// Adminn only
+// Admin only
 router.delete('/:exam_id/que/:que_id', auth, async (req, res) => {
     if(req.user.admin === false) {
         return res.status(401).json({ msg: "Not Authorized for this task"});
@@ -149,6 +150,49 @@ router.delete('/:exam_id/que/:que_id', auth, async (req, res) => {
         exam.ques.splice(removeIndex, 1);
         await exam.save();
         res.json({msg: 'Question Deleted'});
+    } catch (err) {
+        console.error(err.message);
+        req.status(500).send('Server Error');
+    }
+});
+
+// PUT /api/exam/:exam_id/subscribe
+// Subscription of an examination
+// Private
+router.put('/:exam_id/subs', auth, async (req, res) => {
+    try {
+        const user = await User.findOne({_id: req.user.id});
+        const exam = await CreateExam.findOne({_id: req.params.exam_id});
+        user.exams.unshift(exam);
+        user.save();
+        res.json(user);
+
+
+    } catch (err) {
+        console.error(err.message);
+        req.status(500).send('Server Error');
+    }
+});
+
+// PUT /api/exam/:exam_id/que
+// Answering questions
+// Private
+router.put('/:exam_id', auth, async (req, res) => {
+    try {
+        
+        const {optChosen} = req.body;
+        const user = await User.findOne({_id: req.user.id});
+        const examIndex = user.exams.map(exam => exam._id).indexOf(req.params.exam_id);
+        user.exams[examIndex].optChosen.push(...optChosen);
+        user.exams[examIndex].ques.forEach((que, i) => {
+            if(user.exams[examIndex].optChosen[i] == que.ans)
+                que.isCorrect = true;
+        });
+
+        await user.save();
+        res.json(user);
+
+
     } catch (err) {
         console.error(err.message);
         req.status(500).send('Server Error');

@@ -20,6 +20,9 @@ const CreateSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    optChosen: {
+        type: [String]
+    },
     
     ques: [
         {
@@ -37,6 +40,10 @@ const CreateSchema = new mongoose.Schema({
             ans: {
                 type: String,
                 required: true
+            },
+            isCorrect: {
+                type: Boolean,
+                default: false
             }
         }
     ]
