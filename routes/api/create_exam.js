@@ -174,7 +174,7 @@ router.put('/:exam_id/subs', auth, async (req, res) => {
     }
 });
 
-// PUT /api/exam/:exam_id/que
+// PUT /api/exam/:exam_id
 // Answering questions
 // Private
 router.put('/:exam_id', auth, async (req, res) => {
