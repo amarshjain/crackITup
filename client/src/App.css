@@ -419,3 +419,9 @@ nav a.active:after {
           transform: rotate(45deg);
 }
 
+@media (max-width: 700px) {
+  .hide-sm {
+    display: none;
+  }
+
+}
