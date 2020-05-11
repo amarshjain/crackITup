@@ -246,3 +246,176 @@ nav a.active:after {
   color: #EF3B3A;
 }
 
+/* *********
+ Alerts
+********* */
+
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,400i,600,700");
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.section {
+  padding: 50px 0;
+}
+.section .alert:not(:first-child) {
+  margin-top: 15px;
+}
+
+.alert {
+  background-color: #29d2e4;
+  border: 1px solid #29d2e4;
+  color: #fff;
+  padding: 15px 20px;
+}
+
+
+.alert .alert-container {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.alert .close-icon {
+  float: right;
+  color: #000;
+  margin-top: 0;
+  margin-left: 0;
+  width: 21px;
+  height: 21px;
+  position: relative;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-indent: -999px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.alert .close-icon:before, .alert .close-icon:after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  width: 15px;
+  height: 2px;
+  left: 0;
+}
+.alert .close-icon:before {
+  background-color: #fff;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.alert .close-icon:after {
+  background-color: #fff;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.alert.alert-success {
+  background-color: #8bc34a;
+  border: 1px solid #8bc34a;
+}
+.alert.alert-success .alert-icon {
+  float: left;
+  margin-right: 15px;
+}
+.alert.alert-success .alert-info {
+  margin: 0 10px 0 0;
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 14px;
+}
+.alert.alert-success .alert-container {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.alert.alert-success .close-icon {
+  float: right;
+  color: #000;
+  margin-top: 0;
+  margin-left: 0;
+  width: 21px;
+  height: 21px;
+  position: relative;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-indent: -999px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.alert.alert-success .close-icon:before, .alert.alert-success .close-icon:after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  width: 15px;
+  height: 2px;
+  left: 0;
+}
+.alert.alert-success .close-icon:before {
+  background-color: #fff;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.alert.alert-success .close-icon:after {
+  background-color: #fff;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.alert.alert-warning {
+  background-color: #f87d09;
+  border: 1px solid #f87d09;
+}
+.alert.alert-warning .alert-icon {
+  float: left;
+  margin-right: 15px;
+}
+.alert.alert-warning .alert-info {
+  margin: 0 10px 0 0;
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 14px;
+}
+.alert.alert-warning .alert-container {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.alert.alert-warning .close-icon {
+  float: right;
+  color: #000;
+  margin-top: 0;
+  margin-left: 0;
+  width: 21px;
+  height: 21px;
+  position: relative;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-indent: -999px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.alert.alert-warning .close-icon:before, .alert.alert-warning .close-icon:after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  width: 15px;
+  height: 2px;
+  left: 0;
+}
+.alert.alert-warning .close-icon:before {
+  background-color: #fff;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}
+.alert.alert-warning .close-icon:after {
+  background-color: #fff;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
