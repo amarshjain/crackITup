@@ -25,28 +25,28 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
 
     return (
         <nav role='navigation'>
-            <Link data-page="home" className="active" onClick={handleClick} to="/">Home</Link>
+            <Link data-page="home" className="active" onClick={handleClick} to="/"><i class="fas fa-home"></i> Home</Link>
  
-            <Link data-page="exams" className="" onClick={handleClick} to="/exams">Exams</Link>
+            <Link data-page="exams" className="" onClick={handleClick} to="/exams"><i class="fas fa-clipboard"></i> Exams</Link>
 
-            { !loading &&
+            {/* { !loading &&
              (<Fragment>{ isAuthenticated ?
-                <Link data-page="clients" className="" onClick={handleClick} to="/subscriptions">Subscriptions</Link> :    
+                <Link data-page="clients" className="" onClick={handleClick} to="/subscriptions">Subs.</Link> :    
              null 
             }</Fragment>)
-            }
+            } */}
 
             { !loading &&
              (<Fragment>{ isAuthenticated ?
-                <Link data-page="login" className="" onClick={handleClick} to="/myprofile">My Profile</Link> :    
-             <Link data-page="login" className="" onClick={handleClick} to="/login">Login</Link> 
+                <Link data-page="login" className="" onClick={handleClick} to="/myprofile"><i class="fas fa-user-circle"></i> Profile</Link> :    
+             <Link data-page="login" className="" onClick={handleClick} to="/login"><i class="fas fa-sign-in-alt"></i> Login</Link> 
             }</Fragment>)
             }
 
             { !loading &&
              (<Fragment>{ isAuthenticated ?
                 <a className="" onClick={logout} href="#!"><i className="fas fa-sign-out-alt"></i> <span className="hide-sm"></span>Logout</a> :    
-                <Link data-page="register" className="" onClick={handleClick} to="/register">Register</Link> 
+                <Link data-page="register" className="" onClick={handleClick} to="/register"><i class="fas fa-user-plus"></i> Register</Link> 
             }</Fragment>)
             }
 

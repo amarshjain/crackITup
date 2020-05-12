@@ -4,6 +4,8 @@ import Navbar from './components/layout/Navbar';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
+import Myprofile from './components/myprofile/Myprofile';
+import PrivateRoute from './components/routing/PrivateRoute';
 import './App.css';
 
 // Redux
@@ -30,6 +32,7 @@ const App = () => {
               <Switch>
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
+                <PrivateRoute exact path="/myprofile" component={Myprofile} />
               </Switch>
             </section>
           </Fragment>
