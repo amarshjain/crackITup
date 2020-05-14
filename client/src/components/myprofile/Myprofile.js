@@ -31,11 +31,11 @@ const Myprofile = ({getCurrentProfile, auth, profile: {profile, loading}}) => {
           <p className="lead">{profile.branch}</p>
           <p>{profile.field}</p>
           <div className="icons my-1">
-            <a href="#!" target="_blank" rel="noopener noreferrer">
-            <i className="fas fa-phone"> - {profile.phno}</i>
-            </a><br /><br />
-            <a href="#!" target="_blank" rel="noopener noreferrer">
+            <a href="#!">
             <i className="fas fa-user-tie"> - {profile.admno}</i>
+            </a><br /><br />
+            <a href="#!">
+            <i className="fas fa-phone"> - {profile.phno}</i>
             </a>
           </div>
         </div>
