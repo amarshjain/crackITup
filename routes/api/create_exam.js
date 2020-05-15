@@ -13,7 +13,8 @@ const CreateExam = require("../../models/CreateExam");
 router.post('/', [auth, [
     check('field', 'Field is required').not().isEmpty(),
     check('dateOfConduct', 'Date of conduct is required').not().isEmpty(),
-    check('time', 'Time of examination is required').not().isEmpty(),
+    check('from', 'Time of examination is required').not().isEmpty(),
+    check('to', 'Time of examination is required').not().isEmpty(),
     check('mmarks', 'Maximum marks is required').not().isEmpty()
 
 ]], async (req, res) => {
@@ -27,15 +28,16 @@ router.post('/', [auth, [
         return res.status(400).json({ errors: errors.array()});
     }
 
-    const { field, dateOfConduct, time, mmarks } = req.body;
+    const { field, dateOfConduct, from, to, mmarks } = req.body;
 
     const examinfo = {}
     examinfo.field = field;
     examinfo.dateOfConduct = dateOfConduct;
-    examinfo.time = time;
+    examinfo.from = from;
+    examinfo.to = to;
     examinfo.mmarks = mmarks;
 
-    let exam = await CreateExam.findOne({time: req.body.time, dateOfConduct: req.body.dateOfConduct});
+    let exam = await CreateExam.findOne({from: req.body.from, dateOfConduct: req.body.dateOfConduct});
     if(exam) {
         return res.status(400).json({ errors: [{ msg: 'There is another examination on same date and time'}] });
     }

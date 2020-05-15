@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logout} from '../../actions/auth';
 
-const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
+const Navbar = ({ auth: {isAuthenticated, loading, user}, logout }) => {
 
     var body = document.querySelector('body');
 
@@ -30,7 +30,11 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
 
     if(!loading){
             setTimeout(() => {
-    const el = document.querySelector(`[data-page=${localStorage.getItem("bodyClass")}]`);
+    var el = document.querySelector(`[data-page=${localStorage.getItem("bodyClass")}]`);
+
+    if(el === null){
+        el = document.querySelector(`[data-page='home']`);
+    }
     el.classList.add('active');
 
     console.log(el);
@@ -51,12 +55,12 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
  
             <Link data-page="exams" className="" onClick={handleClick} to="/exams"><i data-page="exams" class="fas fa-clipboard"></i> Exams</Link>
 
-            {/* { !loading &&
-             (<Fragment>{ isAuthenticated ?
-                <Link data-page="clients" className="" onClick={handleClick} to="/subscriptions">Subs.</Link> :    
+            { !loading && user !== null &&
+             (<Fragment>{ isAuthenticated && user.admin ?
+                <Link data-page="clients" className="" onClick={handleClick} to="/create-exam"><i data-page="clients" class="fas fa-edit"></i> Create Exam</Link> :    
              null 
             }</Fragment>)
-            } */}
+            }
 
             { !loading &&
              (<Fragment>{ isAuthenticated ?
@@ -67,7 +71,7 @@ const Navbar = ({ auth: {isAuthenticated, loading}, logout }) => {
 
             { !loading &&
              (<Fragment>{ isAuthenticated ?
-                <a className="" onClick={logout} href="#!"><i className="fas fa-sign-out-alt"></i> <span className="hide-sm"></span>Logout</a> :    
+                <a className="" onClick={logout} href="#!"><i className="fas fa-sign-out-alt"></i> <span className="hide-sm">Logout</span></a> :    
                 <Link data-page="register" className="" onClick={handleClick} to="/register"><i data-page="register" class="fas fa-user-plus"></i> Register</Link> 
             }</Fragment>)
             }
