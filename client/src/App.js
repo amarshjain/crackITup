@@ -12,6 +12,7 @@ import './App.css';
 
 // Quiz routes
 import Create_quiz from './components/quiz_comp/Create_quiz';
+import Exams from './components/quiz_comp/Exams';
 
 // Redux
 import {Provider} from 'react-redux';
@@ -37,6 +38,7 @@ const App = () => {
               <Switch>
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/exams" component={Exams} />
                 <PrivateRoute exact path="/myprofile" component={Myprofile} />
                 <PrivateRoute exact path="/create-profile" component={CreateProfile} />
                 <PrivateRoute exact path="/edit-profile" component={EditProfile} />

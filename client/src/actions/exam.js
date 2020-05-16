@@ -26,14 +26,15 @@ export const getExams = () => async dispatch => {
 
 //Create Exam
 export const createExam = formData => async dispatch => {
-    const config = {
-        header: {
-            'Content-Type': 'application/json'
-        }
-    }
 
     try {
-        const res = axios.post('/api/exams', formData, config);
+        const config = {
+            header: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.post('/api/exams', formData, config);
+        console.log(res.data)
         dispatch({
             type: CREATE_EXAM,
             payload: res.data

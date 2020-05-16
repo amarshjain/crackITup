@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react';
-import {Link, withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import {createExam} from '../../actions/exam';
 
-const Create_quiz = ({createExam}) => {
+const Create_quiz = ({createExam, history}) => {
 
     const [formData, setFormData] = useState({
         field: '',
@@ -26,7 +26,8 @@ const Create_quiz = ({createExam}) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        createExam({formData});
+        createExam(formData);
+        history.push('/exams');
     }
     
     return (
@@ -77,4 +78,4 @@ Create_quiz.propTypes = {
     createExam: PropTypes.func.isRequired,
 }
 
-export default connect(null, {createExam})(Create_quiz)
+export default connect(null, {createExam})(withRouter(Create_quiz));
