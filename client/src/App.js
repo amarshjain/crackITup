@@ -13,6 +13,7 @@ import './App.css';
 // Quiz routes
 import Create_quiz from './components/quiz_comp/Create_quiz';
 import Exams from './components/quiz_comp/Exams';
+import EditExam from './components/quiz_comp/EditExam';
 
 // Redux
 import {Provider} from 'react-redux';
@@ -42,6 +43,7 @@ const App = () => {
                 <PrivateRoute exact path="/myprofile" component={Myprofile} />
                 <PrivateRoute exact path="/create-profile" component={CreateProfile} />
                 <PrivateRoute exact path="/edit-profile" component={EditProfile} />
+                <PrivateRoute exact path="/edit-exam/:id" component={EditExam} />
                 <PrivateRoute exact path="/create-exam" component={Create_quiz} />
               </Switch>
             </section>

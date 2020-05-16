@@ -25,7 +25,7 @@ const ExamItem = ({auth, removeExam, exam: {_id, field, dateOfConduct, from ,to,
                     ) : null}
 
                 {auth.isAuthenticated && auth.user.admin ?
-                 (<Link to={``} class="btnexam btn-primary"><i class="fas fa-pen-square"></i> Edit </Link>
+                 (<Link to={`/edit-exam/${_id}`} class="btnexam btn-primary"><i class="fas fa-pen-square"></i> Edit </Link>
                     ) : null}
                 
                 {auth.isAuthenticated && auth.user.admin ?

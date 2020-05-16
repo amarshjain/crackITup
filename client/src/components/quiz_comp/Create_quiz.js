@@ -33,10 +33,7 @@ const Create_quiz = ({createExam, history}) => {
     return (
         <Fragment>
             <form id="form" onSubmit = {e => onSubmit(e)} data-parsley-validate>
-                <div class="success">
-                    <p>Good news <span class="name">Charlie</span>, </p>
-                    <p>your message was successfully sent!</p>
-                </div>
+
                 <h1>Please fill some info about exam...</h1>
                 <br />
                 <fieldset>

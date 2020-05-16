@@ -96,7 +96,7 @@ router.delete('/:exam_id', auth, async (req, res) => {
 })
 
 
-// PUT api/exam/que
+// PUT api/exam/:exam_id/que
 // ADD a question
 // Admin only
 router.put('/:exam_id/que', [auth, [
