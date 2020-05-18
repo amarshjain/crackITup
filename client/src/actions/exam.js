@@ -5,7 +5,8 @@ import {
     GET_EXAMS,
     GET_EXAM,
     REMOVE_EXAM,
-    EXAM_ERROR
+    EXAM_ERROR,
+    ADD_QUE
 } from './types'
 
 // Get Exams
@@ -82,6 +83,35 @@ export const getExam = id => async dispatch => {
     } catch (err) {
         dispatch({
             type:EXAM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
+export const addQue = (examId, {que, opts, ans}) => async dispatch => {
+    const config = {
+        header: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+        
+        const res = await axios.put(`/api/exams/${examId}/que`,{que, opts, ans}, config);
+        console.log(res.data);
+        dispatch({
+            type: ADD_QUE,
+            payload: res.data
+        });
+        dispatch(setAlert('Question Added', 'success'));
+
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if(errors){
+            errors.forEach(error => dispatch(setAlert(error.msg, 'warning')));
+        }
+        dispatch({
+            type: EXAM_ERROR,
             payload: { msg: err.response.statusText, status: err.response.status }
         });
     }

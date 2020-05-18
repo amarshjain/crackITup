@@ -116,12 +116,12 @@ router.put('/:exam_id/que', [auth, [
 
     const {que, isSubjective, ans} = req.body;
     const newque = {que, isSubjective, ans}
+    // if(isSubjective === false) {
+
+    // }
     newque.opts = [];
-    if(isSubjective === false) {
-        newque.opts = [];
-        const {opts} = req.body
-        newque.opts.push(...opts);
-    }
+    const {opts} = req.body
+    newque.opts.push(...opts);
 
     try {
         const exam = await CreateExam.findOne({_id: req.params.exam_id})
@@ -129,7 +129,7 @@ router.put('/:exam_id/que', [auth, [
 
         await exam.save();
 
-        res.json(exam);
+        res.json(exam.ques);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error')
@@ -151,7 +151,7 @@ router.delete('/:exam_id/que/:que_id', auth, async (req, res) => {
 
         exam.ques.splice(removeIndex, 1);
         await exam.save();
-        res.json({msg: 'Question Deleted'});
+        res.json(exam.ques);
     } catch (err) {
         console.error(err.message);
         req.status(500).send('Server Error');

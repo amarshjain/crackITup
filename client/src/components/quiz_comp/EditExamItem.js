@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 const EditExamItem = props => {
-    return (
-        <div>
-            
-        </div>
-    )
+    return ()
 }
 
 EditExamItem.propTypes = {

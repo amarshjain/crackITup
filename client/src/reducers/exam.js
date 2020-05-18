@@ -1,4 +1,4 @@
-import {GET_EXAMS, GET_EXAM, CREATE_EXAM, REMOVE_EXAM, EXAM_ERROR} from '../actions/types';
+import {GET_EXAMS, GET_EXAM, CREATE_EXAM, REMOVE_EXAM, EXAM_ERROR, ADD_QUE, DELETE_QUE} from '../actions/types';
 
 const initialState = {
     exams: [],
@@ -45,6 +45,19 @@ export default function(state = initialState, action) {
                 ...state,
                 error: payload,
                 loading: false
+            }
+
+        case ADD_QUE:
+            return {
+                ...state,
+                exam: {...state.exam, ques: payload},
+                loading: false
+            }
+
+        case DELETE_QUE:
+            return {
+                ...state,
+                ques: state.exam.ques.filter(que => que._id !== payload)
             }
 
         default:
