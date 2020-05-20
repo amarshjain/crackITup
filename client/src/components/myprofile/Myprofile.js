@@ -43,23 +43,7 @@ const Myprofile = ({getCurrentProfile, auth, profile: {profile, loading}}) => {
           <h1 class="lead my-1">
           <i class="fas fa-cloud-download-alt"></i> Subscriptions
           </h1>
-          <div class="repo bg-white p-1 my-1"><br />
-            <div>
-              <h4><a href="#" target="_blank"
-                  rel="noopener noreferrer">Repo One</a></h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repellat, laborum!
-              </p>
-            </div>
-            <div>
-              <ul>
-                <li class="badge badge-primary">Stars: 44</li>
-                <li class="badge badge-dark">Watchers: 21</li>
-                <li class="badge badge-light">Forks: 25</li>
-              </ul>
-            </div>
-          </div>
+
           <div class="repo bg-white p-1 my-1">
             <div>
               <h4><a href="#" target="_blank"

@@ -25,6 +25,10 @@ const CreateSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    marksobt: {
+        type: Number,
+        default: 0
+    },
     optChosen: {
         type: [String]
     },
@@ -44,6 +48,10 @@ const CreateSchema = new mongoose.Schema({
             },
             ans: {
                 type: String,
+                required: true
+            },
+            marks: {
+                type: Number,
                 required: true
             },
             isCorrect: {

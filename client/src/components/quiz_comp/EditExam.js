@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import {getExam, addQue} from '../../actions/exam';
 import {connect} from 'react-redux';
 import Spinner from '../layout/Spinner';
-// import EditExamItem from './EditExamItem';
+import EditExamItem from './EditExamItem';
 
 const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthenticated, user}}) => {
 
@@ -18,7 +18,8 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
         optionB: '',
         optionC: '',
         optionD: '',
-        correct: ''
+        correct: '',
+        marks: ''
     });
 
     const {
@@ -27,7 +28,8 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
         optionB,
         optionC,
         optionD,
-        correct
+        correct,
+        marks
     } = formData;
 
     const onChange = e => setFormdata({...formData, [e.target.name]: e.target.value});
@@ -41,14 +43,15 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
         opts.push(formData.optionB);
         opts.push(formData.optionC);
         opts.push(formData.optionD);
-        addQue(match.params.id ,{que, opts, ans});
+        addQue(match.params.id ,{que, opts, ans, marks});
         setFormdata({
             question: '',
             optionA: '',
             optionB: '',
             optionC: '',
             optionD: '',
-            correct: ''
+            correct: '',
+            marks: ''
         });
         
 
@@ -63,12 +66,18 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
 
             (<Fragment>
             <form id="form" onSubmit={e => onSubmit(e)} data-parsley-validate>
-                <h1>Add/Edit Questions:</h1>
+            <h1>{exam.field}</h1>
             <br />
 
-                {exam.ques.map(que => (
-                    console.log(que)
-                ))};
+                <div>
+                    {exam.ques.map(que => (
+                    <EditExamItem key={que.id} que={que} exam={exam} />
+                    ))}
+                </div>
+                
+
+            <br />
+            <h1>Add Questions:</h1>
 
             <fieldset>
                         <label>Question:</label>
@@ -100,15 +109,22 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
                         <input name="correct" value={correct} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Correct Option" required data-parsley-no-focus data-parsley-error-message="All the Options are required." />
                     </fieldset>
                     <br />
+
+                    <fieldset>
+                    <label>Marks:</label>
+                        <input name="marks" value={marks} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Marks associated with this question" required data-parsley-no-focus data-parsley-error-message="Marks for question are required." />
+                    </fieldset>
+                    <br />
                     
             <fieldset>
                     <input type="submit" className="btnexam btn-success" value="Add Question" />
                     <br />
             </fieldset>
-            {/* <fieldset>
-                        <button className="btn btn-success"> Done</button>
+
+                <Link to="/exams" className="btn btn-success"><i class="fas fa-thumbs-up"></i> Done </Link>
+                        
                         <br />
-            </fieldset> */}
+
             </form>
 
 

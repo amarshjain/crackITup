@@ -6,7 +6,8 @@ import {
     GET_EXAM,
     REMOVE_EXAM,
     EXAM_ERROR,
-    ADD_QUE
+    ADD_QUE,
+    DELETE_QUE
 } from './types'
 
 // Get Exams
@@ -88,7 +89,7 @@ export const getExam = id => async dispatch => {
     }
 }
 
-export const addQue = (examId, {que, opts, ans}) => async dispatch => {
+export const addQue = (examId, {que, opts, ans, marks}) => async dispatch => {
     const config = {
         header: {
             'Content-Type': 'application/json'
@@ -97,7 +98,7 @@ export const addQue = (examId, {que, opts, ans}) => async dispatch => {
 
     try {
         
-        const res = await axios.put(`/api/exams/${examId}/que`,{que, opts, ans}, config);
+        const res = await axios.put(`/api/exams/${examId}/que`,{que, opts, ans, marks}, config);
         console.log(res.data);
         dispatch({
             type: ADD_QUE,
@@ -115,4 +116,22 @@ export const addQue = (examId, {que, opts, ans}) => async dispatch => {
             payload: { msg: err.response.statusText, status: err.response.status }
         });
     }
+}
+
+export const deleteQue = (examId, queId) => async dispatch => {
+
+    try {
+        axios.delete(`/api/exams/${examId}/que/${queId}`);
+        dispatch({
+            type: DELETE_QUE,
+            payload: queId
+        });
+        dispatch(setAlert('Question Deleted', 'success'));
+    } catch (err) {
+        dispatch({
+            type: EXAM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+
 }

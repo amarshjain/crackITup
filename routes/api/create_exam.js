@@ -102,7 +102,8 @@ router.delete('/:exam_id', auth, async (req, res) => {
 router.put('/:exam_id/que', [auth, [
     check('que', 'Question is required').not().isEmpty(),
     check('ans', 'Correct Answer is required').not().isEmpty(),
-    check('opts', 'All options must be filled').not().isEmpty()
+    check('opts', 'All options must be filled').not().isEmpty(),
+    check('marks', 'Marks for question must be filled').not().isEmpty()
 ]], async (req, res) => {
 
     if(req.user.admin === false) {
@@ -114,8 +115,8 @@ router.put('/:exam_id/que', [auth, [
         return res.status(400).json({ errors: errors.array()});
     }
 
-    const {que, isSubjective, ans} = req.body;
-    const newque = {que, isSubjective, ans}
+    const {que, isSubjective, ans, marks} = req.body;
+    const newque = {que, isSubjective, ans, marks}
     // if(isSubjective === false) {
 
     // }
@@ -187,8 +188,11 @@ router.put('/:exam_id', auth, async (req, res) => {
         const examIndex = user.exams.map(exam => exam._id).indexOf(req.params.exam_id);
         user.exams[examIndex].optChosen.push(...optChosen);
         user.exams[examIndex].ques.forEach((que, i) => {
-            if(user.exams[examIndex].optChosen[i] == que.ans)
+            if(user.exams[examIndex].optChosen[i] == que.ans){
                 que.isCorrect = true;
+                user.exams[examIndex].marksobt = user.exams[examIndex].marksobt + que.marks;
+            }
+                
         });
 
         await user.save();

@@ -57,7 +57,11 @@ export default function(state = initialState, action) {
         case DELETE_QUE:
             return {
                 ...state,
-                ques: state.exam.ques.filter(que => que._id !== payload)
+                exam: {
+                    ...state.exam,
+                    ques: state.exam.ques.filter(que => que._id !== payload),
+                    loading: false
+                }
             }
 
         default:
