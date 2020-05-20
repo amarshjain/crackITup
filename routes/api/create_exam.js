@@ -166,9 +166,10 @@ router.put('/:exam_id/subs', auth, async (req, res) => {
     try {
         const user = await User.findOne({_id: req.user.id});
         const exam = await CreateExam.findOne({_id: req.params.exam_id});
+
         user.exams.unshift(exam);
         user.save();
-        res.json(user);
+        res.json(user.exams);
 
 
     } catch (err) {
@@ -176,6 +177,24 @@ router.put('/:exam_id/subs', auth, async (req, res) => {
         req.status(500).send('Server Error');
     }
 });
+
+// DELETE /api/exam/:exam_id/subs
+// Remove a subscription
+// Private
+router.delete('/:exam_id/subs', auth, async (req, res) => {
+    try {
+        const user = await User.findOne({_id: req.user.id});
+
+        const removeIndex = user.exams.map(exam => exam.id).indexOf(req.params.exam_id);
+
+        user.exams.splice(removeIndex, 1);
+        await user.save();
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        req.status(500).send('Server Error');
+    }
+})
 
 // PUT /api/exam/:exam_id
 // Answering questions

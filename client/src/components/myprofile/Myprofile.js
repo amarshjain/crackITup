@@ -3,13 +3,17 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import Spinner from '../layout/Spinner';
+import Subscription from './Subscription';
 import {getCurrentProfile} from '../../actions/profile';
+import {loadUser} from '../../actions/auth';
 
-const Myprofile = ({getCurrentProfile, auth, profile: {profile, loading}}) => {
+
+const Myprofile = ({getCurrentProfile, loadUser, auth, profile: {profile, loading}}) => {
 
     useEffect(() => {
         getCurrentProfile();
-    }, []);
+        loadUser();
+    }, [getCurrentProfile, loadUser]);
     
     return loading && profile === null ? <Spinner /> : <Fragment>
 
@@ -43,24 +47,19 @@ const Myprofile = ({getCurrentProfile, auth, profile: {profile, loading}}) => {
           <h1 class="lead my-1">
           <i class="fas fa-cloud-download-alt"></i> Subscriptions
           </h1>
-
-          <div class="repo bg-white p-1 my-1">
-            <div>
-              <h4><a href="#" target="_blank"
-                  rel="noopener noreferrer">Repo Two</a></h4>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Repellat, laborum!
-              </p>
-            </div>
-            <div>
-              <ul>
-                <li class="badge badge-primary">Stars: 44</li>
-                <li class="badge badge-dark">Watchers: 21</li>
-                <li class="badge badge-light">Forks: 25</li>
-              </ul>
-            </div>
-          </div>
+                {auth.user.exams.length === 0 ?
+                <div class="repo bg-white p-1 my-1">
+                <div>
+                  <h2 className="lead"><a href="#" target="_blank"
+                      rel="noopener noreferrer">No subscriptions yet...</a></h2>
+                </div>
+              </div>
+                : 
+                auth.user.exams.map(exam => (
+                  <Subscription key={exam.id} exam={exam} />
+                ))
+              }
+          
         </div>
       </div>
             </Fragment>) : (<Fragment>
@@ -86,6 +85,7 @@ Myprofile.propTypes = {
     getCurrentProfile: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     profile: PropTypes.object.isRequired,
+    loadUser: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -93,4 +93,4 @@ const mapStateToProps = state => ({
     profile: state.profile
 });
 
-export default connect(mapStateToProps, {getCurrentProfile})(Myprofile)
+export default connect(mapStateToProps, {getCurrentProfile, loadUser})(Myprofile)

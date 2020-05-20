@@ -37,7 +37,6 @@ const Navbar = ({ auth: {isAuthenticated, loading, user}, logout }) => {
     }
     el.classList.add('active');
 
-    console.log(el);
     }, 500);
     }
     }

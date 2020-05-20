@@ -17,3 +17,5 @@ export const REMOVE_EXAM = 'REMOVE_EXAM';
 export const EXAM_ERROR = 'EXAM_ERROR';
 export const ADD_QUE = 'ADD_QUE';
 export const DELETE_QUE = 'DELETE_QUE';
+export const SUBSCRIBE = 'SUBSCRIBE';
+export const REMOVE_SUBS = 'REMOVE_SUBS';

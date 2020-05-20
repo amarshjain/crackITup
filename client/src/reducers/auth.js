@@ -1,4 +1,4 @@
-import {REGISTER_FAIL, REGISTER_SUCCESS, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT} from '../actions/types';
+import {REGISTER_FAIL, REGISTER_SUCCESS, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, SUBSCRIBE, REMOVE_SUBS} from '../actions/types';
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -38,6 +38,25 @@ export default function(state = initialState, action) {
                 isAuthenticated: false,
                 loading: false
             }
+
+        case SUBSCRIBE: {
+            return{
+                ...state,
+                user: {...state.user, exams: payload},
+                loading: false
+            }
+        }
+
+        case REMOVE_SUBS: {
+            return{
+                ...state,
+                user: {
+                    ...state.user,
+                    exams: state.user.exams.filter(exam => exam._id !== payload),
+                    loading: false
+                }
+            }
+        }
 
         default:
             return state;

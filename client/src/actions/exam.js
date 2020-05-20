@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {setAlert} from './alert';
+import {loadUser} from './auth';
 import {
     CREATE_EXAM,
     GET_EXAMS,
@@ -7,7 +8,9 @@ import {
     REMOVE_EXAM,
     EXAM_ERROR,
     ADD_QUE,
-    DELETE_QUE
+    DELETE_QUE,
+    SUBSCRIBE,
+    REMOVE_SUBS
 } from './types'
 
 // Get Exams
@@ -36,7 +39,6 @@ export const createExam = formData => async dispatch => {
             }
         }
         const res = await axios.post('/api/exams', formData, config);
-        console.log(res.data)
         dispatch({
             type: CREATE_EXAM,
             payload: res.data
@@ -135,3 +137,40 @@ export const deleteQue = (examId, queId) => async dispatch => {
     }
 
 }
+
+// Subscribe an examination
+export const subscribe = (examId) => dispatch => {
+    try {
+        const res = axios.put(`/api/exams/${examId}/subs`);
+        dispatch({
+            type: SUBSCRIBE,
+            payload: res.data
+        });
+        dispatch(loadUser());
+        dispatch(setAlert('Exam Subscribed, Please check your PROFILE section...', 'success'));
+    } catch (err) {
+        dispatch({
+            type: EXAM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
+// Remove a subscription
+export const delete_subs = (examId) => dispatch => {
+    try {
+        axios.delete(`/api/exams/${examId}/subs`);
+        dispatch({
+            type: REMOVE_SUBS,
+            payload: examId
+        });
+        dispatch(loadUser());
+        dispatch(setAlert('Subscription removed successfully.', 'success'));
+
+    } catch (err) {
+        dispatch({
+            type: EXAM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+};

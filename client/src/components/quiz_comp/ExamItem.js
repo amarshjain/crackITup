@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Moment from 'react-moment';
-import {removeExam} from '../../actions/exam';
+import {removeExam, subscribe} from '../../actions/exam';
 
-const ExamItem = ({auth, removeExam, exam: {_id, field, dateOfConduct, from ,to, mmarks}}) => {
+const ExamItem = ({auth, removeExam, subscribe, exam: {_id, field, dateOfConduct, from ,to, mmarks}}) => {
+
+
     return (
 
           <div class="repo bg-white p-1 my-1">
@@ -20,9 +22,13 @@ const ExamItem = ({auth, removeExam, exam: {_id, field, dateOfConduct, from ,to,
                 {from}{" "}-{" "}{to}
               </p><br />
 
-              {auth.isAuthenticated ?
-                 ( <Link to={``} class="btnexam btn-danger"><i class="fas fa-cloud-download-alt"></i> Subscribe </Link>
-                    ) : null}
+              {auth.isAuthenticated && !auth.loading ?
+              
+                    (<button onClick={e => subscribe(_id)}
+                    type="button"
+                    class="btnexam btn-danger"><i class="fas fa-cloud-download-alt"></i>
+                    Subscribe
+                    </button>) : null}
 
                 {auth.isAuthenticated && auth.user.admin ?
                  (<Link to={`/edit-exam/${_id}`} class="btnexam btn-primary"><i class="fas fa-pen-square"></i> Edit </Link>
@@ -49,10 +55,11 @@ ExamItem.propTypes = {
     auth: PropTypes.object.isRequired,
     exam: PropTypes.object.isRequired,
     removeExam: PropTypes.func.isRequired,
-}
+    subscribe: PropTypes.func.isRequired,
+  }
 
 const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, {removeExam})(ExamItem)
+export default connect(mapStateToProps, {removeExam, subscribe})(ExamItem)
