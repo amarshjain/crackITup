@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types'
 
-const Countdown = ({dateAndTime}) => {
+const Countdown = ({dateAndTime, examId}) => {
 
 
     
@@ -56,11 +57,15 @@ const Countdown = ({dateAndTime}) => {
         
                 :
       
-                    (<button
-                    type="button"
-                    class="btnexam btn-success"><i class="fas fa-pen-alt"></i>
-                     Give Test
-                    </button>)
+                  <Link to={`/exam/${examId}`}
+                  class="btnexam btn-success"><i class="fas fa-pen-alt"></i>
+                  Give Test</Link>
+
+                    // (<button
+                    // type="button"
+                    // class="btnexam btn-success"><i class="fas fa-pen-alt"></i>
+                    //  Give Test
+                    // </button>)
       
       }
     </div>
@@ -69,6 +74,7 @@ const Countdown = ({dateAndTime}) => {
 
 Countdown.propTypes = {
     dateAndTime: PropTypes.string.isRequired,
+    examId: PropTypes.string.isRequired,
 }
 
 export default Countdown;

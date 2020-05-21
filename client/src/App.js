@@ -14,6 +14,7 @@ import './App.css';
 import Create_quiz from './components/quiz_comp/Create_quiz';
 import Exams from './components/quiz_comp/Exams';
 import EditExam from './components/quiz_comp/EditExam';
+import GiveExam from './components/myprofile/GiveExam';
 
 // Redux
 import {Provider} from 'react-redux';
@@ -45,6 +46,8 @@ const App = () => {
                 <PrivateRoute exact path="/edit-profile" component={EditProfile} />
                 <PrivateRoute exact path="/edit-exam/:id" component={EditExam} />
                 <PrivateRoute exact path="/create-exam" component={Create_quiz} />
+                <PrivateRoute exact path="/exam/:id" component={GiveExam} />
+
               </Switch>
             </section>
           </Fragment>

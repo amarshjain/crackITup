@@ -46,7 +46,7 @@ const Subscription = ({delete_subs, loadUser, auth, exam: {_id, field, dateOfCon
 
               {auth.isAuthenticated && !auth.loading ?
               
-              (     <Countdown dateAndTime={dateAndTime}/>    )
+              (     <Countdown dateAndTime={dateAndTime} examId={_id}/>    )
                     
                      : null}
 
