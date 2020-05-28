@@ -29,6 +29,13 @@ const CreateSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+
+    isSubmitted: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+
     optChosen: {
         type: [String]
     },

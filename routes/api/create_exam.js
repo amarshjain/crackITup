@@ -168,6 +168,9 @@ router.put('/:exam_id/subs', auth, async (req, res) => {
         const exam = await CreateExam.findOne({_id: req.params.exam_id});
 
         user.exams.unshift(exam);
+        user.exams[0].ques.forEach((que) => {
+            user.exams[0].optChosen.push('');
+        })
         user.save();
         res.json(user.exams);
 
@@ -196,17 +199,51 @@ router.delete('/:exam_id/subs', auth, async (req, res) => {
     }
 })
 
-// PUT /api/exam/:exam_id
-// Answering questions
+
+
+// PUT /api/exam/:exam_id/:que_id
+// Answering question
 // Private
-router.put('/:exam_id', auth, async (req, res) => {
+router.put('/:exam_id/:que_id', auth, async (req, res) => {
     try {
         
         const {optChosen} = req.body;
         const user = await User.findOne({_id: req.user.id});
+        const examIndex = await user.exams.map(exam => exam._id).indexOf(req.params.exam_id);
+        const queIndex = await user.exams[examIndex].ques.map(que => que._id.toString()).indexOf(req.params.que_id);
+        user.exams[examIndex].optChosen[queIndex] = optChosen;
+
+
+
+        
+        await User.findOneAndUpdate({_id: req.user.id}, 
+            {
+                 exams: user.exams
+            }
+            )
+
+       
+        await user.save();
+        res.json(user.exams);
+
+
+    } catch (err) {
+        console.error(err.message);
+        req.status(500).send('Server Error');
+    }
+});
+
+
+// PUT /api/exam/:exam_id
+// Submiting exam
+// Private
+router.put('/:exam_id', auth, async (req, res) => {
+    try {
+        
+        const user = await User.findOne({_id: req.user.id});
         const examIndex = user.exams.map(exam => exam._id).indexOf(req.params.exam_id);
-        user.exams[examIndex].optChosen.push(...optChosen);
-        user.exams[examIndex].ques.forEach((que, i) => {
+        if(user.exams[examIndex].isSubmitted === false){
+                    user.exams[examIndex].ques.forEach((que, i) => {
             if(user.exams[examIndex].optChosen[i] == que.ans){
                 que.isCorrect = true;
                 user.exams[examIndex].marksobt = user.exams[examIndex].marksobt + que.marks;
@@ -214,14 +251,24 @@ router.put('/:exam_id', auth, async (req, res) => {
                 
         });
 
+        user.exams[examIndex].isSubmitted = true;
+
+        await User.findOneAndUpdate({_id: req.user.id}, 
+            {
+                 exams: user.exams
+            }
+            );
+        }
+
         await user.save();
-        res.json(user);
+        res.json(user.exams);
 
 
     } catch (err) {
         console.error(err.message);
         req.status(500).send('Server Error');
     }
-})
+});
+
 
 module.exports = router;

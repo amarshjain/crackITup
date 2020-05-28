@@ -1,4 +1,4 @@
-import {REGISTER_FAIL, REGISTER_SUCCESS, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, SUBSCRIBE, REMOVE_SUBS} from '../actions/types';
+import {REGISTER_FAIL, REGISTER_SUCCESS, USER_LOADED, AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, SUBSCRIBE, REMOVE_SUBS, ADD_OPTION, ANSWERING, SUBMIT_EXAM} from '../actions/types';
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -39,13 +39,15 @@ export default function(state = initialState, action) {
                 loading: false
             }
 
-        case SUBSCRIBE: {
+        case SUBSCRIBE:
+        case ANSWERING:
+        case SUBMIT_EXAM:
             return{
                 ...state,
                 user: {...state.user, exams: payload},
                 loading: false
             }
-        }
+
 
         case REMOVE_SUBS: {
             return{
@@ -57,6 +59,7 @@ export default function(state = initialState, action) {
                 }
             }
         }
+
 
         default:
             return state;

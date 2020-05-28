@@ -4,17 +4,18 @@ import Moment from 'react-moment';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {loadUser} from '../../actions/auth';
-import Countdown from './Countdown';
+import {submitExam} from '../../actions/exam';
+import ExamCountdown from './ExamCountdown';
 import QuestionItem from './QuestionItem';
 import Spinner from '../layout/Spinner';
+import ResultPage from './ResultPage';
 
-const GiveExam = ({auth: {isAuthenticated, loading, user}, loadUser, match}) => {
+const GiveExam = ({auth: {isAuthenticated, loading, user}, loadUser, submitExam, match}) => {
 
     useEffect(() => {
         loadUser();
     }, [loadUser]);
 
-    
     const examIndex = loading ? '' : user.exams.map(exam => exam._id).indexOf(match.params.id);
     const exam = loading ? '' : user.exams[examIndex];
 
@@ -26,10 +27,16 @@ const GiveExam = ({auth: {isAuthenticated, loading, user}, loadUser, match}) => 
 
     }
 
+    const onSubmit = e => {
+      e.preventDefault();
+      submitExam(exam._id);
+    }
+
     return (
         <Fragment>
             {loading && user === null ? (<Spinner />) : (
-                <div class="profile-github">
+              <Fragment>
+                {exam.isSubmitted ? (<ResultPage exam={exam} />) : (<div class="profile-github">
                 <div class="repo bg-white p-1 my-1">
                 <div>
                   <h2 className="lead"><a href="#" target="_blank"
@@ -43,16 +50,19 @@ const GiveExam = ({auth: {isAuthenticated, loading, user}, loadUser, match}) => 
                   </p><br />
     
             
-                  <Countdown dateAndTime={dateAndTime} examId={"123"}/><br />
-                        
-                  <div class="profile-github">
+                  <ExamCountdown dateAndTime={dateAndTime} examId={exam._id}/><br />
+
+                          <div class="profile-github">
                   
-                        {exam.ques.map(que => (
-                        <QuestionItem key={que.id} que={que} exam={exam} />
-                        ))}
-                    
-                    </div>
-    
+                              {exam.ques.map((que) => (
+                              <QuestionItem key={que.id} que={que} examId={exam._id} />
+                              ))}
+                          
+                          </div>
+                          <form id='form' onSubmit={e => onSubmit(e)}>
+                          <input type="submit" value="Submit" />
+                        </form>
+                  
                 </div>
                 <div>
                   <ul>
@@ -60,7 +70,10 @@ const GiveExam = ({auth: {isAuthenticated, loading, user}, loadUser, match}) => 
                   </ul>
                 </div>
               </div>
-              </div>
+              </div>)
+              }
+              </Fragment>
+                
             )}
         </Fragment>
     )
@@ -69,10 +82,11 @@ const GiveExam = ({auth: {isAuthenticated, loading, user}, loadUser, match}) => 
 GiveExam.propTypes = {
     auth: PropTypes.object.isRequired,
     loadUser: PropTypes.func.isRequired,
+    submitExam:  PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, {loadUser})(GiveExam)
+export default connect(mapStateToProps, {loadUser, submitExam})(GiveExam)

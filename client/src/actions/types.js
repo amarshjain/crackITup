@@ -19,3 +19,5 @@ export const ADD_QUE = 'ADD_QUE';
 export const DELETE_QUE = 'DELETE_QUE';
 export const SUBSCRIBE = 'SUBSCRIBE';
 export const REMOVE_SUBS = 'REMOVE_SUBS';
+export const ANSWERING = 'ANSWERING';
+export const SUBMIT_EXAM = 'SUBMIT_EXAM';

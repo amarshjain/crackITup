@@ -1,31 +1,39 @@
 import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types';
+import {answering} from '../../actions/exam';
 import {connect} from 'react-redux';
 
-const QuestionItem = ({que, exam, auth}) => {
+const QuestionItem = ({ answering, que, examId, auth, match}) => {
+
+    // answering(exam.id, que.id, '');
 
     const [formData, setFormdata] = useState({checkedOpt: ''})
 
-    const onChange = e => {
-        setFormdata({...formData, checkedOpt: e.target.value});
+    const handleClick = e => {
+        if(e.target.checked) {
+            e.target.checked=false;
+        }
     }
     
-    const handleClick = e => {
-        if(e.target.checked) e.target.checked=false;
+    const onChange = e => {
+        setFormdata({...formData, checkedOpt: e.target.value});
+        const optChosen = e.target.value
+        answering(examId, que._id, {optChosen});
     }
+    
+
 
     return (
         <Fragment>
-            <div class="profile-github">
                 <div class="repo bg-white p-1 my-1">
                     <div>
                     <h4><a href="#!" target="_blank"
                         rel="noopener noreferrer">Q. {que.que}</a></h4>
 
-                    <br /><p><input type="radio" value='A' checked={formData.checkedOpt === 'A'} onChange={e => onChange(e)} onClick={e => handleClick(e)} /> A. {que.opts[0]}</p>
-                    <br /><p><input type="radio" value='B' checked={formData.checkedOpt === 'B'} onChange={e => onChange(e)} onClick={e => handleClick(e)} /> B. {que.opts[1]}</p>
-                    <br /><p><input type="radio" value='C' checked={formData.checkedOpt === 'C'} onChange={e => onChange(e)} onClick={e => handleClick(e)} /> C. {que.opts[2]}</p>
-                    <br /><p><input type="radio" value='D' checked={formData.checkedOpt === 'D'} onChange={e => onChange(e)} onClick={e => handleClick(e)} /> D. {que.opts[3]}</p>
+                    <br /><p><input type="radio" value='A' checked={formData.checkedOpt === 'A'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> A. {que.opts[0]}</p>
+                    <br /><p><input type="radio" value='B' checked={formData.checkedOpt === 'B'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> B. {que.opts[1]}</p>
+                    <br /><p><input type="radio" value='C' checked={formData.checkedOpt === 'C'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> C. {que.opts[2]}</p>
+                    <br /><p><input type="radio" value='D' checked={formData.checkedOpt === 'D'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> D. {que.opts[3]}</p>
                     </div>
 
                     <div>
@@ -37,18 +45,17 @@ const QuestionItem = ({que, exam, auth}) => {
                     </div>
                     
                 </div>
-            </div>
         </Fragment>
     );
 }
 
 QuestionItem.propTypes = {
     que: PropTypes.object.isRequired,
-    exam: PropTypes.object.isRequired,
+    examId: PropTypes.string.isRequired,
     auth: PropTypes.object.isRequired,
 }
 const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, {})(QuestionItem);
+export default connect(mapStateToProps, {answering})(QuestionItem);

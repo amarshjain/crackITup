@@ -10,7 +10,9 @@ import {
     ADD_QUE,
     DELETE_QUE,
     SUBSCRIBE,
-    REMOVE_SUBS
+    REMOVE_SUBS,
+    ANSWERING,
+    SUBMIT_EXAM
 } from './types'
 
 // Get Exams
@@ -101,7 +103,6 @@ export const addQue = (examId, {que, opts, ans, marks}) => async dispatch => {
     try {
         
         const res = await axios.put(`/api/exams/${examId}/que`,{que, opts, ans, marks}, config);
-        console.log(res.data);
         dispatch({
             type: ADD_QUE,
             payload: res.data
@@ -123,7 +124,7 @@ export const addQue = (examId, {que, opts, ans, marks}) => async dispatch => {
 export const deleteQue = (examId, queId) => async dispatch => {
 
     try {
-        axios.delete(`/api/exams/${examId}/que/${queId}`);
+        await axios.delete(`/api/exams/${examId}/que/${queId}`);
         dispatch({
             type: DELETE_QUE,
             payload: queId
@@ -139,9 +140,9 @@ export const deleteQue = (examId, queId) => async dispatch => {
 }
 
 // Subscribe an examination
-export const subscribe = (examId) => dispatch => {
+export const subscribe = (examId) => async dispatch => {
     try {
-        const res = axios.put(`/api/exams/${examId}/subs`);
+        const res = await axios.put(`/api/exams/${examId}/subs`);
         dispatch({
             type: SUBSCRIBE,
             payload: res.data
@@ -157,9 +158,9 @@ export const subscribe = (examId) => dispatch => {
 }
 
 // Remove a subscription
-export const delete_subs = (examId) => dispatch => {
+export const delete_subs = (examId) => async dispatch => {
     try {
-        axios.delete(`/api/exams/${examId}/subs`);
+        await axios.delete(`/api/exams/${examId}/subs`);
         dispatch({
             type: REMOVE_SUBS,
             payload: examId
@@ -174,3 +175,44 @@ export const delete_subs = (examId) => dispatch => {
         });
     }
 };
+
+// Add options
+export const answering = (examId, queId, {optChosen}) => async dispatch => {
+    const config = {
+        header: {
+            'Content-Type': 'application/json'
+        }
+    }
+    
+    try {
+        const res = await axios.put(`/api/exams/${examId}/${queId}`, {optChosen}, config);
+        dispatch({
+            type: ANSWERING,
+            payload: res.data
+        });
+        dispatch(loadUser());
+
+    } catch (err) {
+        dispatch({
+            type: EXAM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
+// Submitting exam
+export const submitExam = (examId) => async dispatch => {
+    try {
+        const res = await axios.put(`/api/exams/${examId}`);
+        dispatch({
+            type: SUBMIT_EXAM,
+            payload: res.data
+        });
+        
+    } catch (err) {
+        dispatch({
+            type: EXAM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
