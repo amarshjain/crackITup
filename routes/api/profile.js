@@ -23,6 +23,19 @@ router.get('/me', auth, async (req, res) => {
     }
 });
 
+// GET api/profile
+// Get all profiles
+// Public
+router.get('/', async (req, res) => {
+    try {
+        const profiles = await Profile.find().populate('user', ['name', 'avatar', 'exams']);
+        res.json(profiles);
+    } catch (err) {
+        console.error(err.message);
+        req.status(500).send('Server Error');
+    }
+});
+
 // POST api/profile
 // Create users profile
 // Private route
