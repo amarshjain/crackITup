@@ -2,14 +2,16 @@ import React, {Fragment, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Spinner from '../layout/Spinner'
-import {getExams} from '../../actions/exam'
+import {getLists} from '../../actions/selection'
 import {connect} from 'react-redux'
 
-const Selections = ({auth, getExams, exams: {loading, exams}}) => {
+import SelectionItem from './SelectionItem'
+
+const Selections = ({auth, getLists, selection: {loading, selections}}) => {
 
     useEffect(() => {
-        getExams();
-    }, [getExams])
+        getLists();
+    }, [getLists])
 
     return ( loading ? <Spinner /> : (
         <Fragment>
@@ -20,13 +22,13 @@ const Selections = ({auth, getExams, exams: {loading, exams}}) => {
             )}
 
             <h1 class="lead my-1">
-                <i class="fas fa-book-open"></i> Choose Exam :
+            <i class="fas fa-list-alt"></i> Choose Exam :
                 </h1><br />
                 <div class="profile-github">
                     
-                {/* {exams.map(exam => (
-                    <ExamItem key={exam._id} exam={exam} />
-                ))} */}
+                {selections.map(selection => (
+                    <SelectionItem key={selection._id} selection={selection} />
+                ))}
 
                 </div>
         </Fragment>
@@ -36,13 +38,13 @@ const Selections = ({auth, getExams, exams: {loading, exams}}) => {
 
 Selections.propTypes = {
     auth: PropTypes.object.isRequired,
-    exams: PropTypes.object.isRequired,
-    getExams: PropTypes.func.isRequired,
+    selection: PropTypes.object.isRequired,
+    getLists: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    exams: state.exam
-})
+    selection: state.selection
+});
 
-export default connect(mapStateToProps, {getExams})(Selections)
+export default connect(mapStateToProps, {getLists})(Selections)

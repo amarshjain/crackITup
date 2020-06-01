@@ -19,6 +19,7 @@ import GiveExam from './components/myprofile/GiveExam';
 
 // Selection Routes
 import Selections from './components/selections/Selections';
+import Addlist from './components/selections/Addlist';
 
 // Redux
 import {Provider} from 'react-redux';
@@ -52,7 +53,9 @@ const App = () => {
                 <PrivateRoute exact path="/create-exam" component={Create_quiz} />
                 <PrivateRoute exact path="/exam/:id" component={GiveExam} />
                 <PrivateRoute exact path="/selections" component={Selections} />
-
+                <Container>
+                    <PrivateRoute exact path="/addlist" component={Addlist} />
+                </Container>
               </Switch>
             </section>
           </Fragment>
