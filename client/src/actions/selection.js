@@ -55,7 +55,7 @@ export const addList = (examId, {cutoff}) => async dispatch => {
             payload: res.data
         });
 
-        dispatch(setAlert('Selection Listt Published', 'success'))
+        dispatch(setAlert('Selection List Published', 'success'))
 
     } catch (err) {
         dispatch({

@@ -17,10 +17,19 @@ const Exams = ({getExams, exams: {exams, loading}}) => {
           <i class="fas fa-book-open"></i> Select Exam To Publish Selection List:
           </h1><br />
           <div class="profile-github">
-            
-            {exams.map(exam => (
-                <AddlistItem key={exam._id} exam={exam} />
-            ))}
+
+          {exams.length === 0 ?
+                <div class="repo bg-white p-1 my-1">
+                <div>
+                  <h2 className="lead"><a href="#" target="_blank"
+                      rel="noopener noreferrer">Please Create Exam Before Releasing a selection List</a></h2>
+                </div>
+              </div>
+                : 
+                exams.map(exam => (
+                    <AddlistItem key={exam._id} exam={exam} />
+                ))
+              }
 
             </div>
             

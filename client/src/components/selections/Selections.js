@@ -25,10 +25,19 @@ const Selections = ({auth, getLists, selection: {loading, selections}}) => {
             <i class="fas fa-list-alt"></i> Choose Exam :
                 </h1><br />
                 <div class="profile-github">
-                    
-                {selections.map(selection => (
+
+                {selections.length === 0 ?
+                <div class="repo bg-white p-1 my-1">
+                <div>
+                  <h2 className="lead"><a href="#" target="_blank"
+                      rel="noopener noreferrer">No Selection List released yet...</a></h2>
+                </div>
+              </div>
+                : 
+                selections.map(selection => (
                     <SelectionItem key={selection._id} selection={selection} />
-                ))}
+                ))
+              }
 
                 </div>
         </Fragment>

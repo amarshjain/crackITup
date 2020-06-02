@@ -1521,49 +1521,60 @@ textarea + .parsley-errors-list {
 @keyframes rotate {
   to{transform: rotate(10deg)}
 }
-/* @keyframes leftToRight{
-  0% {clip-path: circle(150px at 0% 100%);}
-  20% {clip-path: circle(150px at 50% 15%);}
-  30% {clip-path: circle(150px at 100% 50%);}
-  40% {clip-path: circle(150px at 70% 100%);}
-  70% {clip-path: circle(150px at -100% -100%);}
-  80% {clip-path: circle(150px at -100% 200%);}
-  85% {clip-path: circle(150px at 50% 200%);}
-  90% {clip-path: circle(100% at 50% 80%);}
-}
-@keyframes shadow {
-  0% {
-    left: 0%;
-    top: 100%;
-  }
-  20% {
-    left: 50%;
-    top: 15%;
-  }
-  30% {
-    left: 100%;
-    top: 50%;
-  }
-  40% {
-    left: 70%;
-    top: 100%;
-  }
-  70% {
-    left: -100%;
-    top: -100%;
-  }
-  80% {
-    left: -100%;
-    top: 200%
-  }
-  85% {
-    left: 500%;
-    top: 200%;
-  }
-  95% {
-    left: 50%;
-    top: 80%;
-  }
-  
-} */
 
+
+/* **********
+  MODAL
+********** */
+
+.modalDialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  opacity:0;
+  -webkit-transition: opacity 100ms ease-in;
+  -moz-transition: opacity 100ms ease-in;
+  transition: opacity 100ms ease-in;
+  pointer-events: none;
+}
+.modalDialog:target {
+  opacity:1;
+  pointer-events: auto;
+}
+.modalDialog > div {
+  max-width: 800px;
+  width: 90%;
+  position: relative;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 3px;
+  background: #fff;
+}
+.close {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f26d7d;
+  color: #fff;
+  line-height: 25px;
+  position: absolute;
+  right: -12px;
+  text-align: center;
+  top: -10px;
+  width: 34px;
+  height: 34px;
+  text-decoration: none;
+  font-weight: bold;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  -moz-box-shadow: 1px 1px 3px #000;
+  -webkit-box-shadow: 1px 1px 3px #000;
+  box-shadow: 1px 1px 3px #000;
+  padding-top: 5px;
+}
+.close:hover {
+  background: #fa3f6f;
+}

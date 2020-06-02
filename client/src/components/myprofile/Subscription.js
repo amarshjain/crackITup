@@ -14,18 +14,18 @@ const Subscription = ({delete_subs, loadUser, auth, exam: {_id, field, dateOfCon
     }, [loadUser])
 
     const dateObj = new Date(dateOfConduct);
-    var dateAndTime = `${dateObj.getUTCFullYear()}-0${dateObj.getUTCMonth() + 1}-${dateObj.getUTCDate()}T${from}`;
+    var dateAndTime = `${dateObj.getUTCFullYear()}-0${dateObj.getUTCMonth() + 1}-0${dateObj.getUTCDate()}T${from}`;
 
     if(new Date(dateAndTime) == "Invalid Date"){
         dateAndTime = `${dateObj.getUTCFullYear()}-${dateObj.getUTCMonth() + 1}-${dateObj.getUTCDate()}T${from}`;
+        if(new Date(dateAndTime) == "Invalid Date"){
+          dateAndTime =`${dateObj.getUTCFullYear()}-${dateObj.getUTCMonth() + 1}-0${dateObj.getUTCDate()}T${from}`;
+            if(new Date(dateAndTime) == "Invalid Date"){
+              dateAndTime =`${dateObj.getUTCFullYear()}-0${dateObj.getUTCMonth() + 1}-${dateObj.getUTCDate()}T${from}`;
+            }
+        }
 
     }
-
-  //   {dateObj.getUTCMonth() + 1 > 9 ?
-  //     dateAndTime = `${dateObj.getUTCFullYear()}-${dateObj.getUTCMonth() + 1}-${dateObj.getUTCDate()}T${from}`
-  //     :
-  //     dateAndTime = `${dateObj.getUTCFullYear()}-0${dateObj.getUTCMonth() + 1}-${dateObj.getUTCDate()}T${from}`
-  // }
     
 
     return (

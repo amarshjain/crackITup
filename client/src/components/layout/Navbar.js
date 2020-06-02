@@ -61,6 +61,13 @@ const Navbar = ({ auth: {isAuthenticated, loading, user}, logout }) => {
             }</Fragment>)
             }
 
+            { !loading && user !== null &&
+             (<Fragment>{ isAuthenticated ?
+                <Link data-page="register" className="" onClick={handleClick} to="/selections"><i class="fas fa-list-alt"></i> Selections</Link> :    
+             null 
+            }</Fragment>)
+            }
+
             { !loading &&
              (<Fragment>{ isAuthenticated ?
                 <Link data-page="login" className="" onClick={handleClick} to="/myprofile"><i data-page="login" class="fas fa-user-circle"></i> Profile</Link> :    

@@ -6,7 +6,6 @@ const Countdown = ({dateAndTime, examId}) => {
 
 
     
-    // console.log("2020-05-23T17:00")
     const calculateTimeLeft = () => {
         
     const difference = +new Date(dateAndTime) - +new Date();
@@ -61,11 +60,6 @@ const Countdown = ({dateAndTime, examId}) => {
                   class="btnexam btn-success"><i class="fas fa-pen-alt"></i>
                   Give Test</Link>
 
-                    // (<button
-                    // type="button"
-                    // class="btnexam btn-success"><i class="fas fa-pen-alt"></i>
-                    //  Give Test
-                    // </button>)
       
       }
     </div>

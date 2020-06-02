@@ -1,36 +1,30 @@
-import React, {useState} from 'react'
+import React, {useState, Fragment} from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {addList} from '../../actions/selection'
 import Moment from 'react-moment';
-import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    Form,
-    FormGroup,
-    Label,
-    Input
-} from 'reactstrap';
 
-const ExamItem = ({auth, removeExam, subscribe, exam: {_id, field, dateOfConduct, from ,to, mmarks}}) => {
+const ExamItem = ({auth, addList, exam: {_id, field, dateOfConduct, from ,to, mmarks}, history}) => {
 
     const [formData, setFormData] = useState({
-        modal: false,
         cutoff: ''
     });
 
-    const {modal} = formData;
+    const {cutoff} = formData;
+    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
 
-    const toggle = () => {
-         setFormData({...formData, modal: !formData.modal});
-    }
-
-
+    const onSubmit = e => {
+      e.preventDefault();
+      console.log(_id, cutoff);
+      addList(_id, {cutoff});
+      history.push('/selections')
+  }
+    const modal = `#openModal-about ${_id}`
+    const modalId = `openModal-about ${_id}`
     return (
-
-          <div class="repo bg-white p-1 my-1">
+      <Fragment>
+        <div class="repo bg-white p-1 my-1">
             <div>
               <h2 className="lead"><a href="#" target="_blank"
                   rel="noopener noreferrer">{field}</a></h2>
@@ -44,11 +38,12 @@ const ExamItem = ({auth, removeExam, subscribe, exam: {_id, field, dateOfConduct
 
               {auth.isAuthenticated && !auth.loading ?
               
-                    (<button onClick={toggle}
+                    (<a
+                    href={modal}
                     type="button"
                     class="btnexam btn-success"> 
                     Set Cutoff
-                    </button>) : null}
+                    </a>) : null}
 
             </div>
             <div>
@@ -58,16 +53,44 @@ const ExamItem = ({auth, removeExam, subscribe, exam: {_id, field, dateOfConduct
             </div>
             
           </div>
+
+          <div id={modalId} class="modalDialog">
+              <div>
+                <a href="#close" title="Close" class="close">X</a>
+
+                <br /> 
+
+                    <form id="form" onSubmit = {e => onSubmit(e)} data-parsley-validate>
+
+                        <h1>Set cutoff marks</h1>
+                        <br />
+                            <fieldset>
+                                <input value={cutoff} onChange={e => onChange(e)} name="cutoff" class="floatlabel" type="number" placeholder="Set cutoff marks for this exam" required data-parsley-no-focus data-parsley-error-message="Please enter maximum marks." />
+                            </fieldset>
+                            <br />
+
+
+                        <fieldset>
+                                    <input type="submit" value="Publish Selection List" />
+                            </fieldset>
+                    </form>
+
+              </div>
+          </div>
+      </Fragment>
+
+          
     )
 }
 
 ExamItem.propTypes = {
     auth: PropTypes.object.isRequired,
-    exam: PropTypes.object.isRequired
+    exam: PropTypes.object.isRequired,
+    addList: PropTypes.func.isRequired,
   }
 
 const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, {})(ExamItem)
+export default connect(mapStateToProps, {addList})(withRouter(ExamItem))

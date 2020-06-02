@@ -9,11 +9,21 @@ const QuestionItem = ({ answering, que, examId, auth, match}) => {
 
     const [formData, setFormdata] = useState({checkedOpt: ''})
 
+    const {checkedOpt} = formData;
+
     const handleClick = e => {
         if(e.target.checked) {
             e.target.checked=false;
+            const optChosen = ''
+            answering(examId, que._id, {optChosen});
         }
     }
+
+    // const setNull = e => {
+    //     if(e.target.checked) {
+    //         const optChosen = ''
+    //         answering(examId, que._id, {optChosen});        }
+    // }
     
     const onChange = e => {
         setFormdata({...formData, checkedOpt: e.target.value});
@@ -30,10 +40,10 @@ const QuestionItem = ({ answering, que, examId, auth, match}) => {
                     <h4><a href="#!" target="_blank"
                         rel="noopener noreferrer">Q. {que.que}</a></h4>
 
-                    <br /><p><input type="radio" value='A' checked={formData.checkedOpt === 'A'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> A. {que.opts[0]}</p>
-                    <br /><p><input type="radio" value='B' checked={formData.checkedOpt === 'B'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> B. {que.opts[1]}</p>
-                    <br /><p><input type="radio" value='C' checked={formData.checkedOpt === 'C'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> C. {que.opts[2]}</p>
-                    <br /><p><input type="radio" value='D' checked={formData.checkedOpt === 'D'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> D. {que.opts[3]}</p>
+                    <br /><p><input type="radio" value='A' checked={checkedOpt === 'A'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> A. {que.opts[0]}</p>
+                    <br /><p><input type="radio" value='B' checked={checkedOpt === 'B'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> B. {que.opts[1]}</p>
+                    <br /><p><input type="radio" value='C' checked={checkedOpt === 'C'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> C. {que.opts[2]}</p>
+                    <br /><p><input type="radio" value='D' checked={checkedOpt === 'D'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> D. {que.opts[3]}</p>
                     </div>
 
                     <div>

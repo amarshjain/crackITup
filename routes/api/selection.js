@@ -33,13 +33,18 @@ router.post('/:examId', [auth, [
     selectionInfo.cutoff = cutoff;
     selectionInfo.selectedUsers = [];
 
-    const profiles = await Profile.find().populate('user', ['name', 'avatar', 'exams']);
+    const profiles = await Profile.find().populate('user', ['name', 'avatar', 'exams', 'email']);
 
     profiles.forEach((profile) => {
         const examIndex = profile.user.exams.map(exam => exam._id).indexOf(req.params.examId);
         if(examIndex > -1) {
             if(profile.user.exams[examIndex].marksobt >= cutoff) {
-                selectionInfo.selectedUsers.push(profile);
+                const info = {}
+                info.profile = profile
+                info.email = profile.user.email
+                info.name = profile.user.name
+                info.avatar = profile.user.avatar
+                selectionInfo.selectedUsers.push(info);
             }
         }
 

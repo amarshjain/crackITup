@@ -18,9 +18,18 @@ const Exams = ({getExams, exams: {exams, loading}}) => {
           </h1><br />
           <div class="profile-github">
             
-            {exams.map(exam => (
-                <ExamItem key={exam._id} exam={exam} />
-            ))}
+            {exams.length === 0 ?
+                <div class="repo bg-white p-1 my-1">
+                <div>
+                  <h2 className="lead"><a href="#" target="_blank"
+                      rel="noopener noreferrer">No Upcoming Exams yet...</a></h2>
+                </div>
+              </div>
+                : 
+                exams.map(exam => (
+                    <ExamItem key={exam._id} exam={exam} />
+                ))
+              }
 
             </div>
             

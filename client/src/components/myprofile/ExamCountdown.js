@@ -60,7 +60,7 @@ const ExamCountdown = ({dateAndTime, examId, submitExam}) => {
         </button>)
         
                 :
-                setTimeout(submitExam(examId), 100)
+                submit()
                   // (<button
                   // class="btnexam btn-danger"><i class="fas fa-clock"></i>
                   //  Auto Submitting...</button>
