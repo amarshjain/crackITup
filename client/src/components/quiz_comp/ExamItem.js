@@ -7,6 +7,12 @@ import {removeExam, subscribe} from '../../actions/exam';
 
 const ExamItem = ({auth, removeExam, subscribe, exam: {_id, field, dateOfConduct, from ,to, mmarks}}) => {
 
+  var subscribed = false;
+  if(auth.user !== null){
+    auth.user.exams.map(exam => exam._id).forEach(id => {
+      if(id == _id) subscribed = true
+    });
+  }
 
     return (
 
@@ -24,11 +30,23 @@ const ExamItem = ({auth, removeExam, subscribe, exam: {_id, field, dateOfConduct
 
               {auth.isAuthenticated && !auth.loading ?
               
-                    (<button onClick={e => subscribe(_id)}
-                    type="button"
-                    class="btnexam btn-danger"><i class="fas fa-cloud-download-alt"></i>
-                    Subscribe
-                    </button>) : null}
+                  (subscribed ?
+                    
+                    (<button
+                  type="button"
+                  class="btnexam btn-light"
+                  disabled={subscribed}><i class="fas fa-cloud-download-alt"></i>
+                  Subscribed
+                  </button>) : 
+
+                  (<button onClick={e => subscribe(_id)}
+                  type="button"
+                  class="btnexam btn-danger"
+                  disabled={subscribed}><i class="fas fa-cloud-download-alt"></i>
+                  Subscribe
+                  </button>))  
+              
+                     : null}
 
                 {auth.isAuthenticated && auth.user.admin ?
                  (<Link to={`/edit-exam/${_id}`} class="btnexam btn-primary"><i class="fas fa-pen-square"></i> Edit </Link>

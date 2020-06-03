@@ -188,8 +188,7 @@ router.delete('/:exam_id/subs', auth, async (req, res) => {
     try {
         const user = await User.findOne({_id: req.user.id});
 
-        const removeIndex = user.exams.map(exam => exam.id).indexOf(req.params.exam_id);
-
+        const removeIndex = user.exams.map(exam => exam._id).indexOf(req.params.exam_id);
         user.exams.splice(removeIndex, 1);
         await user.save();
         res.json(user);

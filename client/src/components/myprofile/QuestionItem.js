@@ -13,10 +13,14 @@ const QuestionItem = ({ answering, que, examId, auth, match}) => {
 
     const handleClick = e => {
         if(e.target.checked) {
-            e.target.checked=false;
+            // e.target.checked=false;
+            setFormdata({...formData, checkedOpt: ''});
             const optChosen = ''
             answering(examId, que._id, {optChosen});
         }
+        // const optChosen = ''
+        //     answering(examId, que._id, {optChosen});
+
     }
 
     // const setNull = e => {

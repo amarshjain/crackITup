@@ -26,8 +26,23 @@ const Subscription = ({delete_subs, loadUser, auth, exam: {_id, field, dateOfCon
         }
 
     }
-    
 
+    var today = new Date();
+    var currentDate = today.getFullYear()+'-0'+(today.getMonth()+1)+'-0'+today.getDate();
+
+    if(new Date(currentDate) == "Invalid Date"){
+      currentDate = `${today.getUTCFullYear()}-${today.getUTCMonth() + 1}-${today.getUTCDate()}T${from}`;
+      if(new Date(currentDate) == "Invalid Date"){
+        currentDate =`${today.getUTCFullYear()}-${today.getUTCMonth() + 1}-0${today.getUTCDate()}T${from}`;
+          if(new Date(currentDate) == "Invalid Date"){
+            currentDate =`${today.getUTCFullYear()}-0${today.getUTCMonth() + 1}-${today.getUTCDate()}T${from}`;
+          }
+      }
+
+  }
+    var currentTime = today.getHours() + ":" + today.getMinutes();
+    var currentDateTime = currentDate+'T'+currentTime;
+    
     return (
 
           <div class="repo bg-white p-1 my-1">
@@ -58,7 +73,7 @@ const Subscription = ({delete_subs, loadUser, auth, exam: {_id, field, dateOfCon
             </div>
             <div>
               <ul>
-              {auth.isAuthenticated ?
+              {currentDateTime < dateAndTime ?
                  (<button onClick={e => delete_subs(_id)}
                  type="button"
                  class="btnexam btn-danger"> <i class="fas fa-times"></i>

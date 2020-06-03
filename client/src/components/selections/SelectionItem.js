@@ -28,7 +28,7 @@ const SelectionItem = ({auth, deleteList, selection: {_id, exam: {field, dateOfC
                     Subscribe
                     </button>) : null} */}
 
-                {auth.isAuthenticated && auth.user.admin ?
+                {auth.isAuthenticated ?
                  (<Link to={`/selections/${_id}`} class="btnexam btn-success"><i class="fas fa-list-alt"></i> Show Selection List </Link>
                     ) : null}
                 

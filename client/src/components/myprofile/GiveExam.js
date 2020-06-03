@@ -21,7 +21,6 @@ const GiveExam = ({auth: {isAuthenticated, loading, user}, loadUser, submitExam,
 
     const dateObj = loading  ? '' : new Date(exam.dateOfConduct);
     var dateAndTime = loading  ? '' : `${dateObj.getUTCFullYear()}-0${dateObj.getUTCMonth() + 1}-0${dateObj.getUTCDate()}T${exam.to}`;
-    console.log(dateAndTime)
 
     if(new Date(dateAndTime) == "Invalid Date"){
         dateAndTime =loading ? '' : `${dateObj.getUTCFullYear()}-${dateObj.getUTCMonth() + 1}-${dateObj.getUTCDate()}T${exam.to}`;
