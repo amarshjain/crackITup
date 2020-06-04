@@ -69,11 +69,6 @@ const Subscription = ({delete_subs, loadUser, auth, exam: {_id, isSubmitted, fie
                    View Result</Link>
                   }
 
-                {/* {auth.isAuthenticated && auth.user.admin ?
-                 (<Link to={`/edit-exam/${_id}`} class="btnexam btn-primary"><i class="fas fa-pen-square"></i> Edit </Link>
-                    ) : null} */}
-
-
             </div>
             <div>
               <ul>
