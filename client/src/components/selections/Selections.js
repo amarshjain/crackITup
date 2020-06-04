@@ -29,7 +29,7 @@ const Selections = ({auth, getLists, selection: {loading, selections}}) => {
                 {selections.length === 0 ?
                 <div class="repo bg-white p-1 my-1">
                 <div>
-                  <h2 className="lead"><a href="#" target="_blank"
+                  <h2 className="lead"><a href="#!"
                       rel="noopener noreferrer">No Selection List released yet...</a></h2>
                 </div>
               </div>

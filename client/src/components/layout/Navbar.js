@@ -52,7 +52,14 @@ const Navbar = ({ auth: {isAuthenticated, loading, user}, logout }) => {
         <nav role='navigation'>
             <Link data-page="home" className="" onClick={handleClick} to="/"><i data-page="home" className="fas fa-home"></i><span className="hide-sm"> Home</span></Link>
  
-            <Link data-page="exams" className="" onClick={handleClick} to="/exams"><i data-page="exams" class="fas fa-clipboard"></i> Exams</Link>
+
+            { !loading && user !== null &&
+             (<Fragment>{ isAuthenticated ?
+                <Link data-page="exams" className="" onClick={handleClick} to="/exams"><i data-page="exams" class="fas fa-clipboard"></i> Exams</Link>
+                :    
+             null 
+            }</Fragment>)
+            }
 
             { !loading && user !== null &&
              (<Fragment>{ isAuthenticated && user.admin ?
@@ -77,7 +84,7 @@ const Navbar = ({ auth: {isAuthenticated, loading, user}, logout }) => {
 
             { !loading &&
              (<Fragment>{ isAuthenticated ?
-                <a className="" onClick={logout} href="#!"><i className="fas fa-sign-out-alt"></i> <span className="hide-sm"> Logout</span></a> :    
+                <a className="" onClick={logout} href="/login"><i className="fas fa-sign-out-alt"></i> <span className="hide-sm"> Logout</span></a> :    
                 <Link data-page="register" className="" onClick={handleClick} to="/register"><i data-page="register" class="fas fa-user-plus"></i><span className="hide-sm">Register</span></Link> 
             }</Fragment>)
             }

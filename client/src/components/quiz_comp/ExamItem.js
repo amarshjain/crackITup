@@ -18,7 +18,7 @@ const ExamItem = ({auth, removeExam, subscribe, exam: {_id, field, dateOfConduct
 
           <div class="repo bg-white p-1 my-1">
             <div>
-              <h2 className="lead"><a href="#" target="_blank"
+              <h2 className="lead"><a href="#!"
                   rel="noopener noreferrer">{field}</a></h2>
               <p>
     Date Of Conduct: <Moment format='DD/MM/YYYY'>{dateOfConduct}</Moment>

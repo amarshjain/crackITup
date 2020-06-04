@@ -10,7 +10,7 @@ const SelectionItem = ({auth, deleteList, selection: {_id, exam: {field, dateOfC
     return (
         <div class="repo bg-white p-1 my-1">
             <div>
-              <h2 className="lead"><a href="#" target="_blank"
+              <h2 className="lead"><a href="#!"
                   rel="noopener noreferrer">{field}</a></h2>
               <p>
     Date Of Conduct: <Moment format='DD/MM/YYYY'>{dateOfConduct}</Moment>
@@ -19,14 +19,6 @@ const SelectionItem = ({auth, deleteList, selection: {_id, exam: {field, dateOfC
               <p>
                 {from}{" "}-{" "}{to}
               </p><br />
-
-              {/* {auth.isAuthenticated && !auth.loading ?
-              
-                    (<button
-                    type="button"
-                    class="btnexam btn-danger"><i class="fas fa-cloud-download-alt"></i>
-                    Subscribe
-                    </button>) : null} */}
 
                 {auth.isAuthenticated ?
                  (<Link to={`/selections/${_id}`} class="btnexam btn-success"><i class="fas fa-list-alt"></i> Show Selection List </Link>

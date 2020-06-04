@@ -7,7 +7,7 @@ import Moment from 'react-moment';
 import { delete_subs } from '../../actions/exam';
 import Countdown from './Countdown';
 
-const Subscription = ({delete_subs, loadUser, auth, exam: {_id, field, dateOfConduct, from ,to, mmarks}}) => {
+const Subscription = ({delete_subs, loadUser, auth, exam: {_id, isSubmitted, field, dateOfConduct, from ,to, mmarks}}) => {
 
     useEffect(() => {
       loadUser();
@@ -47,7 +47,7 @@ const Subscription = ({delete_subs, loadUser, auth, exam: {_id, field, dateOfCon
 
           <div class="repo bg-white p-1 my-1">
             <div>
-              <h2 className="lead"><a href="#" target="_blank"
+              <h2 className="lead"><a href="#!"
                   rel="noopener noreferrer">{field}</a></h2>
               <p>
     Date Of Conduct: <Moment format='DD/MM/YYYY'>{dateOfConduct}</Moment>
@@ -59,11 +59,15 @@ const Subscription = ({delete_subs, loadUser, auth, exam: {_id, field, dateOfCon
 
               
 
-              {auth.isAuthenticated && !auth.loading ?
+              {auth.isAuthenticated && !auth.loading && !isSubmitted ?
               
               (     <Countdown dateAndTime={dateAndTime} examId={_id}/>    )
                     
-                     : null}
+                     : 
+                     <Link to={`/exam/${_id}`}
+                  class="btnexam btn-success"><i class="fas fa-poll"></i> {" "}
+                   View Result</Link>
+                  }
 
                 {/* {auth.isAuthenticated && auth.user.admin ?
                  (<Link to={`/edit-exam/${_id}`} class="btnexam btn-primary"><i class="fas fa-pen-square"></i> Edit </Link>

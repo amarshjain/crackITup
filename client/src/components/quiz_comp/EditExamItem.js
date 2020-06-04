@@ -2,6 +2,15 @@ import React, {Fragment} from 'react'
 import PropTypes from 'prop-types';
 import {deleteQue} from '../../actions/exam';
 import {connect} from 'react-redux';
+import * as Showdown from "showdown";
+
+const converter = new Showdown.Converter({
+    tables: true,
+    simplifiedAutoLink: true,
+    strikethrough: true,
+    tasklists: true
+  });
+
 
 const EditExamItem = ({que, exam, auth, deleteQue}) => {
     return (
@@ -9,8 +18,9 @@ const EditExamItem = ({que, exam, auth, deleteQue}) => {
             <div class="profile-github">
                 <div class="repo bg-white p-1 my-1">
                     <div>
-                    <h4><a href="#" target="_blank"
-                        rel="noopener noreferrer">Q. {que.que}</a></h4>
+                    <h4><a href="#!"
+                        rel="noopener noreferrer"><div dangerouslySetInnerHTML= {{__html: converter.makeHtml(que.que)}} />
+                        </a></h4>
                     <br /><p>A. {que.opts[0]}</p>
                     <br /><p>B. {que.opts[1]}</p>
                     <br /><p>C. {que.opts[2]}</p>

@@ -50,7 +50,7 @@ const Myprofile = ({getCurrentProfile, loadUser, auth, profile: {profile, loadin
                 {auth.user.exams.length === 0 ?
                 <div class="repo bg-white p-1 my-1">
                 <div>
-                  <h2 className="lead"><a href="#" target="_blank"
+                  <h2 className="lead"><a href="#!"
                       rel="noopener noreferrer">No subscriptions yet...</a></h2>
                 </div>
               </div>

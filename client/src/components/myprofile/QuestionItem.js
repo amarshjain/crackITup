@@ -2,6 +2,14 @@ import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types';
 import {answering} from '../../actions/exam';
 import {connect} from 'react-redux';
+import * as Showdown from "showdown";
+
+const converter = new Showdown.Converter({
+    tables: true,
+    simplifiedAutoLink: true,
+    strikethrough: true,
+    tasklists: true
+  });
 
 const QuestionItem = ({ answering, que, examId, auth, match}) => {
 
@@ -18,16 +26,9 @@ const QuestionItem = ({ answering, que, examId, auth, match}) => {
             const optChosen = ''
             answering(examId, que._id, {optChosen});
         }
-        // const optChosen = ''
-        //     answering(examId, que._id, {optChosen});
 
     }
 
-    // const setNull = e => {
-    //     if(e.target.checked) {
-    //         const optChosen = ''
-    //         answering(examId, que._id, {optChosen});        }
-    // }
     
     const onChange = e => {
         setFormdata({...formData, checkedOpt: e.target.value});
@@ -41,8 +42,10 @@ const QuestionItem = ({ answering, que, examId, auth, match}) => {
         <Fragment>
                 <div class="repo bg-white p-1 my-1">
                     <div>
-                    <h4><a href="#!" target="_blank"
-                        rel="noopener noreferrer">Q. {que.que}</a></h4>
+                    <h4><a href="#!"
+                        rel="noopener noreferrer">
+                            <div dangerouslySetInnerHTML= {{__html: converter.makeHtml(que.que)}} />
+                        </a></h4>
 
                     <br /><p><input type="radio" value='A' checked={checkedOpt === 'A'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> A. {que.opts[0]}</p>
                     <br /><p><input type="radio" value='B' checked={checkedOpt === 'B'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> B. {que.opts[1]}</p>

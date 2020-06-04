@@ -57,7 +57,7 @@ const CreateProfile = ({createProfile, history}) => {
   
   <div className="float-label">
         <br />
-    <p>*All the above is subject to change</p>
+        <p>*Please fill above info properly, it will be published in selection list</p>
   </div>
   <br />
   <button className="btn" type="submit">Submit</button>

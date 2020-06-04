@@ -6,14 +6,28 @@ import {connect} from 'react-redux';
 import Spinner from '../layout/Spinner';
 import EditExamItem from './EditExamItem';
 
+// Text editor
+import * as Showdown from "showdown";
+import ReactMde from "react-mde";
+import "react-mde/lib/styles/css/react-mde-all.css";
+
+const converter = new Showdown.Converter({
+    tables: true,
+    simplifiedAutoLink: true,
+    strikethrough: true,
+    tasklists: true
+  });
+
 const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthenticated, user}}) => {
+
+
+    const [selectedTab, setSelectedTab] = React.useState("write");
 
     useEffect(() => {
         getExam(match.params.id);
     }, [getExam]);
 
-    const [formData, setFormdata] = useState({
-        question: '',
+    let [formData, setFormdata] = useState({
         optionA: '',
         optionB: '',
         optionC: '',
@@ -22,8 +36,9 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
         marks: ''
     });
 
+    let [question, setQuestion] = useState('')
+
     const {
-        question,
         optionA,
         optionB,
         optionC,
@@ -34,9 +49,15 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
 
     const onChange = e => setFormdata({...formData, [e.target.name]: e.target.value});
 
+    // const handleChange = e => setFormdata({...formData, question: e.target.value});
+
     const onSubmit = e => {
+
         e.preventDefault();
-        const que = question;
+
+        question = question.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+        let que = question;
         const ans = correct;
         const opts = [];
         opts.push(formData.optionA);
@@ -45,7 +66,6 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
         opts.push(formData.optionD);
         addQue(match.params.id ,{que, opts, ans, marks});
         setFormdata({
-            question: '',
             optionA: '',
             optionB: '',
             optionC: '',
@@ -53,6 +73,7 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
             correct: '',
             marks: ''
         });
+        setQuestion('');
         
 
     } 
@@ -81,7 +102,17 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
 
             <fieldset>
                         <label>Question:</label>
-                        <textarea name="question" value={question} onChange={e => onChange(e)} class="floatlabel"  placeholder="Question" required data-parsley-no-focus data-parsley-error-message="Please enter a message." ></textarea>
+                        <ReactMde
+                            value={question}
+                            name="question"
+                            onChange={  setQuestion }
+                            selectedTab={selectedTab}
+                            onTabChange={setSelectedTab}
+                            generateMarkdownPreview={markdown =>
+                                Promise.resolve(converter.makeHtml(markdown.replace(/(?:\r\n|\r|\n)/g, '<br>')))
+                            }
+                        />
+                        {/* <textarea name="question" value={question} onChange={e => onChange(e)} class="floatlabel"  placeholder="Question" required data-parsley-no-focus data-parsley-error-message="Please enter a message." ></textarea> */}
                 </fieldset>
                 <br />
                 <fieldset>

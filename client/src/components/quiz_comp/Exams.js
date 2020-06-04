@@ -21,7 +21,7 @@ const Exams = ({getExams, exams: {exams, loading}}) => {
             {exams.length === 0 ?
                 <div class="repo bg-white p-1 my-1">
                 <div>
-                  <h2 className="lead"><a href="#" target="_blank"
+                  <h2 className="lead"><a href="#!"
                       rel="noopener noreferrer">No Upcoming Exams yet...</a></h2>
                 </div>
               </div>
