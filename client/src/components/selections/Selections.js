@@ -6,6 +6,8 @@ import {getLists} from '../../actions/selection'
 import {connect} from 'react-redux'
 
 import SelectionItem from './SelectionItem'
+import Footer from '../layout/Footer'
+
 
 const Selections = ({auth, getLists, selection: {loading, selections}}) => {
 
@@ -40,6 +42,7 @@ const Selections = ({auth, getLists, selection: {loading, selections}}) => {
               }
 
                 </div>
+                <Footer />
         </Fragment>
     )
     )

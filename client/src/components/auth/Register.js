@@ -4,6 +4,8 @@ import {Link, Redirect} from 'react-router-dom';
 import {setAlert} from '../../actions/alert';
 import {register} from '../../actions/auth';
 import PropTypes from 'prop-types'
+import Footer from '../layout/Footer'
+
 
 
 
@@ -56,6 +58,7 @@ const Register = ({setAlert, register, isAuthenticated}) => {
 
                 </div>
             </div>
+            <Footer />
         </Fragment>
     )
 }

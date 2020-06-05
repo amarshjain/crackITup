@@ -3,6 +3,8 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types';
 import {createExam} from '../../actions/exam';
+import Footer from '../layout/Footer'
+
 
 const Create_quiz = ({createExam, history}) => {
 
@@ -67,6 +69,7 @@ const Create_quiz = ({createExam, history}) => {
                             <input type="submit" value="Submit" />
                     </fieldset>
             </form>
+            <Footer />
         </Fragment>
     )
 }

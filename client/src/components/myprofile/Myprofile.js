@@ -6,6 +6,8 @@ import Spinner from '../layout/Spinner';
 import Subscription from './Subscription';
 import {getCurrentProfile} from '../../actions/profile';
 import {loadUser} from '../../actions/auth';
+import Footer from '../layout/Footer'
+
 
 
 const Myprofile = ({getCurrentProfile, loadUser, auth, profile: {profile, loading}}) => {
@@ -77,7 +79,7 @@ const Myprofile = ({getCurrentProfile, loadUser, auth, profile: {profile, loadin
           </div>
           </div>
             </Fragment>)}
-
+          <Footer />
     </Fragment>;
 }
 

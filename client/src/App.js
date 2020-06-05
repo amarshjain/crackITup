@@ -8,6 +8,7 @@ import Myprofile from './components/myprofile/Myprofile';
 import CreateProfile from './components/profile_form/CreateProfile';
 import EditProfile from './components/profile_form/EditProfile';
 import PrivateRoute from './components/routing/PrivateRoute';
+import Home from './components/layout/Home';
 import './App.css';
 
 // Quiz routes
@@ -44,6 +45,7 @@ const App = () => {
             <section className="container">
               <Alert />
               <Switch>
+                <Route exact path="/" component={Home} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/exams" component={Exams} />

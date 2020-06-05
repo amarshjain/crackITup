@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ExamItem from '../quiz_comp/ExamItem';
 import {getExams} from '../../actions/exam';
+import Footer from '../layout/Footer'
+
 
 const Exams = ({getExams, exams: {exams, loading}}) => {
 
@@ -32,6 +34,7 @@ const Exams = ({getExams, exams: {exams, loading}}) => {
               }
 
             </div>
+            <Footer />
             
         </Fragment>
     ) )
