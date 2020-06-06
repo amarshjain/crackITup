@@ -17,7 +17,7 @@ const Selections = ({auth, getLists, selection: {loading, selections}}) => {
 
     return ( loading ? <Spinner /> : (
         <Fragment>
-            {auth.isAuthenticated && auth.loading === false && (
+            {auth.isAuthenticated && auth.loading === false && auth.user.admin && (
                 <Link to="/addlist" className='btn btn-success'>
                     Add Selection List
                 </Link>
