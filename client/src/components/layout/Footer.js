@@ -13,7 +13,7 @@ const Footer = props => {
                     <Link to="/login">Login</Link> ·
                     <Link to="/exams">Exams</Link> ·
                     <Link to="/selections">Selections</Link> ·
-                    <Link to="/profile">Profile</Link> ·
+                    <Link to="/myprofile">Profile</Link> ·
                 </p>
 
                 <p class="footer-company-name">Amarsh Jain &copy; 2020</p>

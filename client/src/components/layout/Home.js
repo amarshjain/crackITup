@@ -15,7 +15,7 @@ const Home = props => {
                             CrackIT
                         </h1>
                         <p>
-                            CrackIT is simple user friendly website for conducting quiz exams.  <br /> Our mission is to allow examination online with a more user-friendly UI!!! 
+                            CrackIT is a simple user friendly website for conducting quiz exams.  <br /> Our mission is to allow examination online with a more user-friendly UI!!! 
                         </p>
                     </div>                    
                 </div>
@@ -30,11 +30,14 @@ const Home = props => {
         <div class="story-container">
             <div class="need-for-dx-container">
                 <h3 class="text-center">
-                    Need for the WEBSITE
+                    Need for this WEBSITE
                 </h3>
                 <p>
-                    Application Programming Interfaces (APIs) have taken the world by storm and are now the de facto standard of software communication. Almost every software product nowadays consumes APIs. The business model of numerous companies around the world relies upon the consumption of their APIs. API providers, therefore, strive to increase API adoption rates by spending millions of dollars every year to improve developer experience. This is usually done by providing Software Development Kits (SDKs) and API documentation to developer consuming their API(s). Developing SDKs and writing documentation, however, are arduous, monotonous and error-prone tasks. It is a slow process and costs a lot of time and money.
-                </p>
+                Quizzes help students identify what they know and what they don't know. The students then have a better idea of how well they are grasping the material, hopefully motivating them to study more and helping them allocate their study time effectively by focusing on the information that still needs more practice.<br /><br />
+                Frequent quizzes give the teacher an idea of how well the class as a whole grasps the concepts. In my class, if a couple of students are struggling, I can reach out to them and encourage them to come to my office to ask questions individually. If many students are struggling, this tells me that I need to do something different during class. I can rethink the way I am explaining something, provide additional instruction in the classroom, or create an engaging activity for the class to do together to make sure the content is clear.  <br /><br />
+                In these tough times of COVID-19 and lockdown, We all should encourage our spirits to learn something new everyday <br/> <br/> 
+                KEEP LEARNING KEEP QUIZZING!!!
+                  </p>
                 <div class="img-container">
                     <img src="https://cdn.dribbble.com/users/2026288/screenshots/6923164/brain_800_600.gif"/>
                 </div>
