@@ -12,10 +12,10 @@ const Home = props => {
                 <div class="top-box">
                     <div class="content-box">
                         <h1><br />
-                            CrackIT
+                            CrackITup
                         </h1>
                         <p>
-                            CrackIT is a simple user friendly website for conducting quiz exams.  <br /> Our mission is to allow examination online with a more user-friendly UI!!! 
+                            CrackITup is a simple user friendly website for conducting quiz exams.  <br /> Our mission is to allow examination online with a more user-friendly UI!!! 
                         </p>
                     </div>                    
                 </div>

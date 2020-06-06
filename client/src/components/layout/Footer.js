@@ -33,7 +33,7 @@ const Footer = props => {
 
                 <div>
                     <i class="fa fa-envelope"></i>
-                    <p><a href="mailto:support@company.com">support@crackit.com</a></p>
+                    <p><a href="mailto:support@company.com">support@crackitup.com</a></p>
                 </div>
 
                 </div>
