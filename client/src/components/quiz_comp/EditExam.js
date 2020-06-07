@@ -137,7 +137,14 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
                     <br />
                     <fieldset>
                     <label>Correct Option:</label>
-                        <input name="correct" value={correct} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Correct Option" required data-parsley-no-focus data-parsley-error-message="All the Options are required." />
+                        {/* <input name="correct" value={correct} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Correct Option" required data-parsley-no-focus data-parsley-error-message="All the Options are required." /> */}
+                        <select name="correct" value={correct} onChange={(e) => onChange(e)}>
+                            <option value="0">* Select Correct Option</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </select>
                     </fieldset>
                     <br />
 

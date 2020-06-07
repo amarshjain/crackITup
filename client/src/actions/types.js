@@ -13,6 +13,7 @@ export const PROFILE_ERROR = 'PROFILE_ERROR';
 export const GET_EXAMS = 'GET_EXAMS';
 export const GET_EXAM = 'GET_EXAM';
 export const CREATE_EXAM = 'CREATE_EXAM';
+export const EDIT_EXAM = 'EDIT_EXAM';
 export const REMOVE_EXAM = 'REMOVE_EXAM';
 export const EXAM_ERROR = 'EXAM_ERROR';
 export const ADD_QUE = 'ADD_QUE';

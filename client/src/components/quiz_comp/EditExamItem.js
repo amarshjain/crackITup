@@ -1,8 +1,14 @@
-import React, {Fragment} from 'react'
+import React, {Fragment, useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types';
-import {deleteQue} from '../../actions/exam';
+import {deleteQue, editQue} from '../../actions/exam';
 import {connect} from 'react-redux';
+
+// Text Editor
 import * as Showdown from "showdown";
+import ReactMde from "react-mde";
+import "react-mde/lib/styles/css/react-mde-all.css";
+
 
 const converter = new Showdown.Converter({
     tables: true,
@@ -12,7 +18,70 @@ const converter = new Showdown.Converter({
   });
 
 
-const EditExamItem = ({que, exam, auth, deleteQue}) => {
+
+const EditExamItem = ({que, exam, auth, deleteQue, editQue}) => {
+
+    const [selectedTab, setSelectedTab] = React.useState("write");
+
+    let [formData, setFormdata] = useState({
+        optionA: '',
+        optionB: '',
+        optionC: '',
+        optionD: '',
+        correct: '',
+        marks: ''
+    });
+
+    let [question, setQuestion] = useState('');
+
+    let queId = que._id;
+    const modal = `#openModal-about ${exam._id}/${que._id}`
+    const modalId = `openModal-about ${exam._id}/${que._id}`
+
+    useEffect(() => {
+
+        setQuestion(que.que)
+        
+        setFormdata({
+            optionA: que.opts[0],
+            optionB: que.opts[1],
+            optionC: que.opts[2],
+            optionD: que.opts[3],
+            correct: que.ans,
+            marks: que.marks
+        })
+    }, []);
+
+    const {
+        optionA,
+        optionB,
+        optionC,
+        optionD,
+        correct,
+        marks
+    } = formData;
+
+    const onChange = e => setFormdata({...formData, [e.target.name]: e.target.value});
+
+    // const handleChange = e => setFormdata({...formData, question: e.target.value});
+
+    const onSubmit = e => {
+
+        e.preventDefault();
+
+        question = question.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+        let que = question;
+        const ans = correct;
+        const opts = [];
+        opts.push(formData.optionA);
+        opts.push(formData.optionB);
+        opts.push(formData.optionC);
+        opts.push(formData.optionD);
+        console.log(queId)
+        editQue(exam._id, queId, {que, opts, ans, marks});        
+    } 
+
     return (
         <Fragment>
             <div class="profile-github">
@@ -25,8 +94,20 @@ const EditExamItem = ({que, exam, auth, deleteQue}) => {
                     <br /><p>B. {que.opts[1]}</p>
                     <br /><p>C. {que.opts[2]}</p>
                     <br /><p>D. {que.opts[3]}</p>
-                    <br /><p className="badge badge-primary">Correct Option: {que.ans}</p>
+                    <br /><p className="badge badge-primary">Correct Option: {que.ans}</p><br />
+
+                    {auth.isAuthenticated && auth.user.admin ?
+                 (<a
+                    href={modal}
+                    type="button"
+                    class="btnexam btn-primary"> 
+                    Edit
+                    </a>) : null}
+
+
                     </div>
+
+                    
 
                     <div>
                     <ul>
@@ -51,6 +132,84 @@ const EditExamItem = ({que, exam, auth, deleteQue}) => {
                     
                 </div>
             </div>
+
+            <div id={modalId} class="modalDialog">
+              <div>
+                <a href="#close" title="Close" class="close">X</a>
+
+                <br /> 
+
+                <form id="form" onSubmit={e => onSubmit(e)} data-parsley-validate>
+    
+                    <br />
+                    <h1>Edit Question:</h1>
+
+                    <fieldset>
+                                <label>Question:</label>
+                                <ReactMde
+                                    value={question}
+                                    name="question"
+                                    onChange={  setQuestion }
+                                    selectedTab={selectedTab}
+                                    onTabChange={setSelectedTab}
+                                    generateMarkdownPreview={markdown =>
+                                        Promise.resolve(converter.makeHtml(markdown.replace(/(?:\r\n|\r|\n)/g, '<br>')))
+                                    }
+                                />
+                                {/* <textarea name="question" value={question} onChange={e => onChange(e)} class="floatlabel"  placeholder="Question" required data-parsley-no-focus data-parsley-error-message="Please enter a message." ></textarea> */}
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <label>Option A:</label>
+                                <input name="optionA" value={optionA} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Option A" required data-parsley-no-focus data-parsley-error-message="All the Options are required." />
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                            <label>Option B:</label>
+                                <input name="optionB" value={optionB} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Option B" required data-parsley-no-focus data-parsley-error-message="All the Options are required." />
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                            <label>Option C:</label>
+                                <input name="optionC" value={optionC} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Option C" required data-parsley-no-focus data-parsley-error-message="All the Options are required." />
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                            <label>Option D:</label>
+                                <input name="optionD" value={optionD} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Option D" required data-parsley-no-focus data-parsley-error-message="All the Options are required." />
+                            </fieldset>
+                            <br />
+                            <fieldset>
+                            <label>Correct Option:</label>
+                                {/* <input name="correct" value={correct} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Correct Option" required data-parsley-no-focus data-parsley-error-message="All the Options are required." /> */}
+                                <select name="correct" value={correct} onChange={(e) => onChange(e)}>
+                                    <option value="0">* Select Correct Option</option>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                </select>    
+                                
+                            </fieldset>
+                            <br />
+
+                            <fieldset>
+                            <label>Marks:</label>
+                                <input name="marks" value={marks} onChange={e => onChange(e)} class="floatlabel" id="name" type="number" placeholder="Marks associated with this question" required data-parsley-no-focus data-parsley-error-message="Marks for question are required." />
+                            </fieldset>
+                            <br />
+                            
+                    <fieldset>
+                            <input type="submit" className="btnexam btn-success" value="Update Question" />
+                            <br />
+                    </fieldset>
+                                
+                                <br />
+
+                    </form>
+
+              </div>
+          </div>
         </Fragment>
     );
 }
@@ -60,9 +219,10 @@ EditExamItem.propTypes = {
     exam: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
     deleteQue: PropTypes.func.isRequired,
+    editQue: PropTypes.func.isRequired,
 }
 const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, {deleteQue})(EditExamItem)
+export default connect(mapStateToProps, {deleteQue, editQue})(EditExamItem)

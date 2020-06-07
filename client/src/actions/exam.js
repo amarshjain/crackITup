@@ -56,6 +56,31 @@ export const createExam = formData => async dispatch => {
 
 };
 
+// Edit exam
+export const editExam = (formData, examId) => async dispatch => {
+
+    try {
+        const config = {
+            header: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.put(`/api/exams/${examId}`, formData, config);
+        dispatch({
+            type: GET_EXAM,
+            payload: res.data
+        });
+
+        dispatch(setAlert('Exam Info Updated', 'success'))
+
+    } catch (err) {
+        dispatch({
+            type: EXAM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });    }
+
+};
+
 //Remove Exam
 export const removeExam = id => async dispatch => {
     try {
@@ -93,6 +118,7 @@ export const getExam = id => async dispatch => {
     }
 }
 
+// Add question
 export const addQue = (examId, {que, opts, ans, marks}) => async dispatch => {
     const config = {
         header: {
@@ -121,6 +147,36 @@ export const addQue = (examId, {que, opts, ans, marks}) => async dispatch => {
     }
 }
 
+// Edit Question
+export const editQue = (examId, que_id, {que, opts, ans, marks}) => async dispatch => {
+    const config = {
+        header: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    try {
+        
+        const res = await axios.put(`/api/exams/${examId}/que/${que_id}`,{que, opts, ans, marks}, config);
+        dispatch({
+            type: GET_EXAM,
+            payload: res.data
+        });
+        dispatch(setAlert('Question Updated', 'success'));
+
+    } catch (err) {
+        const errors = err.response.data.errors;
+        if(errors){
+            errors.forEach(error => dispatch(setAlert(error.msg, 'warning')));
+        }
+        dispatch({
+            type: EXAM_ERROR,
+            payload: { msg: err.response.statusText, status: err.response.status }
+        });
+    }
+}
+
+// Delete question
 export const deleteQue = (examId, queId) => async dispatch => {
 
     try {

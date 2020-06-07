@@ -15,6 +15,7 @@ import './App.css';
 import Create_quiz from './components/quiz_comp/Create_quiz';
 import Exams from './components/quiz_comp/Exams';
 import EditExam from './components/quiz_comp/EditExam';
+import EditExamInfo from './components/quiz_comp/EditExamInfo';
 import GiveExam from './components/myprofile/GiveExam';
 
 
@@ -48,11 +49,12 @@ const App = () => {
                 <Route exact path="/" component={Home} />
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/exams" component={Exams} />
+                <PrivateRoute exact path="/exams" component={Exams} />
                 <PrivateRoute exact path="/myprofile" component={Myprofile} />
                 <PrivateRoute exact path="/create-profile" component={CreateProfile} />
                 <PrivateRoute exact path="/edit-profile" component={EditProfile} />
                 <PrivateRoute exact path="/edit-exam/:id" component={EditExam} />
+                <PrivateRoute exact path="/edit-exam-info/:id" component={EditExamInfo} />
                 <PrivateRoute exact path="/create-exam" component={Create_quiz} />
                 <PrivateRoute exact path="/exam/:id" component={GiveExam} />
                 <PrivateRoute exact path="/selections" component={Selections} />

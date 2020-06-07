@@ -49,7 +49,11 @@ const ExamItem = ({auth, removeExam, subscribe, exam: {_id, field, dateOfConduct
                      : null}
 
                 {auth.isAuthenticated && auth.user.admin ?
-                 (<Link to={`/edit-exam/${_id}`} class="btnexam btn-primary"><i class="fas fa-pen-square"></i> Edit </Link>
+                 (<Link to={`/edit-exam-info/${_id}`} class="btnexam btn-primary"><i class="fas fa-pen-square"></i> Edit Exam Info</Link>
+                    ) : null}
+
+                {auth.isAuthenticated && auth.user.admin ?
+                 (<Link to={`/edit-exam/${_id}`} class="btnexam btn-success"><i class="fas fa-pen-square"></i> Add Questions </Link>
                     ) : null}
                 
                 {auth.isAuthenticated && auth.user.admin ?
