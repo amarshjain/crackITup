@@ -178,6 +178,7 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
     )
 }
 
+
 EditExam.propTypes = {
     auth: PropTypes.object.isRequired,
     getExam: PropTypes.func.isRequired,
