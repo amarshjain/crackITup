@@ -2,7 +2,11 @@ import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types';
 import {answering} from '../../actions/exam';
 import {connect} from 'react-redux';
+
+// Text Editor
 import * as Showdown from "showdown";
+import ReactMde from "react-mde";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
 const converter = new Showdown.Converter({
     tables: true,
@@ -42,11 +46,14 @@ const QuestionItem = ({ answering, que, examId, auth, match}) => {
         <Fragment>
                 <div class="repo bg-white p-1 my-1">
                     <div>
-                    <h4><a href="#!"
-                        rel="noopener noreferrer">
-                            <div dangerouslySetInnerHTML= {{__html: converter.makeHtml(que.que)}} />
-                        </a></h4>
-
+                                <ReactMde
+                                    value={que.que}
+                                    selectedTab={"preview"}
+                                    readOnly={true}
+                                    generateMarkdownPreview={markdown =>
+                                        Promise.resolve(converter.makeHtml(markdown))
+                                    }
+                                />
                     <br /><p><input type="radio" value='A' checked={checkedOpt === 'A'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> A. {que.opts[0]}</p>
                     <br /><p><input type="radio" value='B' checked={checkedOpt === 'B'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> B. {que.opts[1]}</p>
                     <br /><p><input type="radio" value='C' checked={checkedOpt === 'C'} onClick={e => handleClick(e)} onChange={e => onChange(e)} /> C. {que.opts[2]}</p>

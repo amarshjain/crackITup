@@ -69,8 +69,6 @@ const EditExamItem = ({que, exam, auth, deleteQue, editQue}) => {
 
         e.preventDefault();
 
-        question = question.replace(/(?:\r\n|\r|\n)/g, '<br>');
-
         let que = question;
         const ans = correct;
         const opts = [];
@@ -87,9 +85,16 @@ const EditExamItem = ({que, exam, auth, deleteQue, editQue}) => {
             <div class="profile-github">
                 <div class="repo bg-white p-1 my-1">
                     <div>
-                    <h4><a href="#!"
-                        rel="noopener noreferrer"><div dangerouslySetInnerHTML= {{__html: converter.makeHtml(que.que)}} />
-                        </a></h4>
+                                <ReactMde
+                                    value={que.que}
+                                    selectedTab={"preview"}
+                                    readOnly={true}
+                                    generateMarkdownPreview={markdown =>
+                                        Promise.resolve(converter.makeHtml(markdown))
+                                    }
+                                />
+                    {/* <div id="question" dangerouslySetInnerHTML= {{__html: converter.makeHtml(que.que)}} /> */}
+                        
                     <br /><p>A. {que.opts[0]}</p>
                     <br /><p>B. {que.opts[1]}</p>
                     <br /><p>C. {que.opts[2]}</p>
@@ -153,7 +158,7 @@ const EditExamItem = ({que, exam, auth, deleteQue, editQue}) => {
                                     selectedTab={selectedTab}
                                     onTabChange={setSelectedTab}
                                     generateMarkdownPreview={markdown =>
-                                        Promise.resolve(converter.makeHtml(markdown.replace(/(?:\r\n|\r|\n)/g, '<br>')))
+                                        Promise.resolve(converter.makeHtml(markdown))
                                     }
                                 />
                                 {/* <textarea name="question" value={question} onChange={e => onChange(e)} class="floatlabel"  placeholder="Question" required data-parsley-no-focus data-parsley-error-message="Please enter a message." ></textarea> */}
@@ -182,8 +187,7 @@ const EditExamItem = ({que, exam, auth, deleteQue, editQue}) => {
                             <fieldset>
                             <label>Correct Option:</label>
                                 {/* <input name="correct" value={correct} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Correct Option" required data-parsley-no-focus data-parsley-error-message="All the Options are required." /> */}
-                                <select name="correct" value={correct} onChange={(e) => onChange(e)}>
-                                    <option value="0">* Select Correct Option</option>
+                                <select name="correct" placeholder="Select Correct Option" value={correct} onChange={(e) => onChange(e)}>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
                                     <option value="C">C</option>

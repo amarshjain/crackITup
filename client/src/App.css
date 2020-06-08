@@ -477,7 +477,7 @@ nav a.active:after {
   padding: 0;
 }
 
-a {
+#question, a {
   color: var(--primary-color);
   text-decoration: none;
 }

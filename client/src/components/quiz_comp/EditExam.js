@@ -55,7 +55,7 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
 
         e.preventDefault();
 
-        question = question.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        // question = question.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
         let que = question;
         const ans = correct;
@@ -109,7 +109,7 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
                             selectedTab={selectedTab}
                             onTabChange={setSelectedTab}
                             generateMarkdownPreview={markdown =>
-                                Promise.resolve(converter.makeHtml(markdown.replace(/(?:\r\n|\r|\n)/g, '<br>')))
+                                Promise.resolve(converter.makeHtml(markdown))
                             }
                         />
                         {/* <textarea name="question" value={question} onChange={e => onChange(e)} class="floatlabel"  placeholder="Question" required data-parsley-no-focus data-parsley-error-message="Please enter a message." ></textarea> */}
@@ -138,8 +138,7 @@ const EditExam = ({getExam, addQue, match, exam: {exam, loading}, auth: {isAuthe
                     <fieldset>
                     <label>Correct Option:</label>
                         {/* <input name="correct" value={correct} onChange={e => onChange(e)} class="floatlabel" id="name" type="text" placeholder="Correct Option" required data-parsley-no-focus data-parsley-error-message="All the Options are required." /> */}
-                        <select name="correct" value={correct} onChange={(e) => onChange(e)}>
-                            <option value="0">* Select Correct Option</option>
+                        <select name="correct" placeholder="Select Correct Option" value={correct} onChange={(e) => onChange(e)}>
                             <option value="A">A</option>
                             <option value="B">B</option>
                             <option value="C">C</option>
