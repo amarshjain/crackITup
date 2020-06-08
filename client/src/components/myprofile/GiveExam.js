@@ -18,6 +18,8 @@ const GiveExam = ({auth: {isAuthenticated, loading, user}, loadUser, submitExam,
 
     const examIndex = loading ? '' : user.exams.map(exam => exam._id).indexOf(match.params.id);
     const exam = loading ? '' : user.exams[examIndex];
+    console.log(exam)
+
 
     const dateObj = loading  ? '' : new Date(exam.dateOfConduct);
     var dateAndTime = loading  ? '' : `${dateObj.getUTCFullYear()}-0${dateObj.getUTCMonth() + 1}-0${dateObj.getUTCDate()}T${exam.to}`;

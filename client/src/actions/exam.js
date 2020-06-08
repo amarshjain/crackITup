@@ -65,7 +65,7 @@ export const editExam = (formData, examId) => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.put(`/api/exams/${examId}`, formData, config);
+        const res = await axios.put(`/api/exams/edit/${examId}`, formData, config);
         dispatch({
             type: GET_EXAM,
             payload: res.data
@@ -259,6 +259,7 @@ export const answering = (examId, queId, {optChosen}) => async dispatch => {
 // Submitting exam
 export const submitExam = (examId) => async dispatch => {
     try {
+        console.log(examId)
         const res = await axios.put(`/api/exams/${examId}`);
         dispatch({
             type: SUBMIT_EXAM,

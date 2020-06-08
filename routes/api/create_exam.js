@@ -51,7 +51,7 @@ router.post('/', [auth, [
 // PUT /api/exams/:exam_id
 // Edit exam fields
 // Admin only
-router.put('/:exam_id', [auth, [
+router.put('/edit/:exam_id', [auth, [
     check('field', 'Field is required').not().isEmpty(),
     check('dateOfConduct', 'Date of conduct is required').not().isEmpty(),
     check('from', 'Time of examination is required').not().isEmpty(),
@@ -78,7 +78,10 @@ router.put('/:exam_id', [auth, [
     examinfo.to = to;
     examinfo.mmarks = mmarks;
 
-    CreateExam.findOneAndUpdate({_id: req.params.exam_id}, {$set: examinfo}, {new: true});
+
+    await CreateExam.findOneAndUpdate({_id: req.params.exam_id}, {$set: examinfo}, {new: true});
+
+
     res.json({msg: 'Examination Info Updated'});
 
 
