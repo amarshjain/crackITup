@@ -78,9 +78,7 @@ router.put('/:exam_id', [auth, [
     examinfo.to = to;
     examinfo.mmarks = mmarks;
 
-    let exam = await CreateExam.findOneAndUpdate({_id: req.params.exam_id}, {$set: examinfo}, {new: true});
-
-    await exam.save();
+    CreateExam.findOneAndUpdate({_id: req.params.exam_id}, {$set: examinfo}, {new: true});
     res.json({msg: 'Examination Info Updated'});
 
 
