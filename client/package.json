@@ -10,7 +10,7 @@
     "moment": "^2.25.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-mde": "^10.0.3",
+    "react-mde": "https://github.com/mmaj5524/react-mde/tarball/master",
     "react-moment": "^0.9.7",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",

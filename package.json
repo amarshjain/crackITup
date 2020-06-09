@@ -21,7 +21,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.12",
     "node-sass": "^4.14.1",
-    "react-mde": "https://github.com/mmaj5524/react-mde/tarball/master",
     "request": "^2.88.2"
   },
   "devDependencies": {
