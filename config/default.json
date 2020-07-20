@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://eduapp777:eduapp777@eduapp.ubk5f.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtSecret": "CyberLabs Is Best"
+}
