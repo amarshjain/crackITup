@@ -1,7 +1,7 @@
 {
   "name": "clcrack",
   "version": "1.0.0",
-  "description": "Examination platform for CyberLabs Club",
+  "description": "Online education App",
   "main": "server.js",
   "scripts": {
     "start": "node server",

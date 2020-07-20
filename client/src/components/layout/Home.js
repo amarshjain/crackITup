@@ -29,7 +29,8 @@ const Home = props => {
 
         <div class="story-container">
             <div class="need-for-dx-container">
-                <h3 class="text-center">
+                <br/><br/><br/><br />
+                {/* <h3 class="text-center">
                     Need for this WEBSITE
                 </h3>
                 <p>
@@ -37,7 +38,7 @@ const Home = props => {
                 Frequent quizzes give the teacher an idea of how well the class as a whole grasps the concepts. In my class, if a couple of students are struggling, I can reach out to them and encourage them to come to my office to ask questions individually. If many students are struggling, this tells me that I need to do something different during class. I can rethink the way I am explaining something, provide additional instruction in the classroom, or create an engaging activity for the class to do together to make sure the content is clear.  <br /><br />
                 In these tough times of COVID-19 and lockdown, We all should encourage our spirits to learn something new everyday <br/> <br/> 
                 KEEP LEARNING KEEP QUIZZING!!!
-                  </p>
+                  </p> */}
                 <div class="img-container">
                     <img src="https://cdn.dribbble.com/users/2026288/screenshots/6923164/brain_800_600.gif"/>
                 </div>
