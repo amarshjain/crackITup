@@ -1,5 +1,5 @@
 import React, {Fragment, useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import {deleteQue, editQue} from '../../actions/exam';
 import {connect} from 'react-redux';
@@ -19,7 +19,7 @@ const converter = new Showdown.Converter({
 
 
 
-const EditExamItem = ({que, exam, auth, deleteQue, editQue}) => {
+const EditExamItem = ({que, exam, auth, deleteQue, editQue, history}) => {
 
     const [selectedTab, setSelectedTab] = React.useState("write");
 
@@ -63,12 +63,10 @@ const EditExamItem = ({que, exam, auth, deleteQue, editQue}) => {
 
     const onChange = e => setFormdata({...formData, [e.target.name]: e.target.value});
 
-    // const handleChange = e => setFormdata({...formData, question: e.target.value});
-
     const onSubmit = e => {
 
         e.preventDefault();
-
+        history.push(`/edit-exam/${exam._id}#close`);
         let que = question;
         const ans = correct;
         const opts = [];
@@ -142,7 +140,7 @@ const EditExamItem = ({que, exam, auth, deleteQue, editQue}) => {
               <div>
                 <a href="#close" title="Close" class="close">X</a>
 
-                <br /> 
+                <br />
 
                 <form id="form" onSubmit={e => onSubmit(e)} data-parsley-validate>
     
@@ -229,4 +227,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, {deleteQue, editQue})(EditExamItem)
+export default connect(mapStateToProps, {deleteQue, editQue})(withRouter(EditExamItem))

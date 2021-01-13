@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://mmaj6625:mmaj6625@cluster0-qcyw6.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "CyberLabs Is Best"
+}
